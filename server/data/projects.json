@@ -1,0 +1,349 @@
+[
+  {
+    "id": "1",
+    "title": "Smart Home Thermostat",
+    "description": "A user-centered thermostat design that simplifies temperature control while reducing energy consumption.",
+    "category": "industrial-design",
+    "year": "2024",
+    "coverImage": "https://images.unsplash.com/photo-1690802220555-669d067fd8ec?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjBwcm9kdWN0JTIwZGVzaWdufGVufDF8fHx8MTc2MDYwNTA5Nnww&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1690802220555-669d067fd8ec?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjBwcm9kdWN0JTIwZGVzaWdufGVufDF8fHx8MTc2MDYwNTA5Nnww&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "role": "Lead Industrial Designer",
+    "tools": [
+      "Rhino",
+      "KeyShot",
+      "Figma",
+      "Arduino"
+    ],
+    "challenges": "Users found existing thermostats confusing and often left them on default settings, wasting energy.",
+    "solution": "Designed an intuitive interface with clear visual feedback and smart learning capabilities.",
+    "outcome": "40% reduction in energy waste and 95% user satisfaction in testing.",
+    "contentBlocks": [
+      {
+        "id": "1",
+        "type": "image-text",
+        "title": "Design Process",
+        "description": "We started with extensive user research, conducting interviews with 50+ homeowners to understand their pain points with current thermostat systems.",
+        "image": "https://images.unsplash.com/photo-1690802220555-669d067fd8ec?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjBwcm9kdWN0JTIwZGVzaWdufGVufDF8fHx8MTc2MDYwNTA5Nnww&ixlib=rb-4.1.0&q=80&w=1080"
+      },
+      {
+        "id": "2",
+        "type": "text",
+        "title": "Key Features",
+        "description": "The final design includes a minimalist interface with large, clear displays, intuitive touch controls, and smart learning algorithms that adapt to user preferences over time."
+      },
+      {
+        "id": "3",
+        "type": "image",
+        "image": "https://images.unsplash.com/photo-1690802220555-669d067fd8ec?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjBwcm9kdWN0JTIwZGVzaWdufGVufDF8fHx8MTc2MDYwNTA5Nnww&ixlib=rb-4.1.0&q=80&w=1080"
+      }
+    ],
+    "link": "",
+    "featured": true,
+    "views": 155,
+    "viewHistory": [
+      {
+        "timestamp": 1760946995259,
+        "ip": "::1",
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/141.0.0.0 Safari/537.36 Edg/141.0.0.0"
+      },
+      {
+        "timestamp": 1760947054056,
+        "ip": "::1",
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/141.0.0.0 Safari/537.36 Edg/141.0.0.0"
+      },
+      {
+        "timestamp": 1760950679744,
+        "ip": "::1",
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36 Edg/141.0.0.0"
+      },
+      {
+        "timestamp": 1760982273552,
+        "ip": "::1",
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36 Edg/141.0.0.0"
+      },
+      {
+        "timestamp": 1760982676411,
+        "ip": "::1",
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36 Edg/141.0.0.0"
+      },
+      {
+        "timestamp": 1760982745815,
+        "ip": "::1",
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36 Edg/141.0.0.0"
+      },
+      {
+        "timestamp": 1760982869884,
+        "ip": "::1",
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36 Edg/141.0.0.0"
+      },
+      {
+        "timestamp": 1760983897459,
+        "ip": "::1",
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36 Edg/141.0.0.0"
+      },
+      {
+        "timestamp": 1760984351336,
+        "ip": "::1",
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36 Edg/141.0.0.0"
+      },
+      {
+        "timestamp": 1760986095786,
+        "ip": "::1",
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36 Edg/141.0.0.0"
+      }
+    ]
+  },
+  {
+    "id": "2",
+    "title": "Healthcare App UX Research",
+    "description": "Comprehensive user research for a telehealth platform serving elderly patients.",
+    "category": "ux-research",
+    "year": "2024",
+    "coverImage": "https://images.unsplash.com/photo-1587955415524-bb264e518428?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxVWCUyMHJlc2VhcmNoJTIwZGVzaWdufGVufDF8fHx8MTc2MDY2Nzk4M3ww&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1587955415524-bb264e518428?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxVWCUyMHJlc2VhcmNoJTIwZGVzaWdufGVufDF8fHx8MTc2MDY2Nzk4M3ww&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "role": "UX Researcher",
+    "tools": [
+      "Miro",
+      "UserTesting",
+      "Dovetail",
+      "Figma"
+    ],
+    "challenges": "Understanding accessibility needs and technology literacy barriers for senior users.",
+    "solution": "Conducted in-depth interviews, usability testing, and created detailed personas and journey maps.",
+    "outcome": "Insights led to a 60% increase in app adoption among target demographic.",
+    "contentBlocks": [],
+    "link": "",
+    "featured": true,
+    "views": 98,
+    "viewHistory": [
+      {
+        "timestamp": 1760955803808,
+        "ip": "::1",
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36 Edg/141.0.0.0"
+      },
+      {
+        "timestamp": 1760968609252,
+        "ip": "::1",
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36 Edg/141.0.0.0"
+      },
+      {
+        "timestamp": 1760983239117,
+        "ip": "::1",
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36 Edg/141.0.0.0"
+      },
+      {
+        "timestamp": 1760983971603,
+        "ip": "::1",
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36 Edg/141.0.0.0"
+      },
+      {
+        "timestamp": 1760984317017,
+        "ip": "::1",
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36 Edg/141.0.0.0"
+      },
+      {
+        "timestamp": 1760984353001,
+        "ip": "::1",
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36 Edg/141.0.0.0"
+      },
+      {
+        "timestamp": 1760986861635,
+        "ip": "::1",
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36 Edg/141.0.0.0"
+      },
+      {
+        "timestamp": 1760987004949,
+        "ip": "::1",
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36 Edg/141.0.0.0"
+      },
+      {
+        "timestamp": 1760990089260,
+        "ip": "::1",
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36 Edg/141.0.0.0"
+      }
+    ]
+  },
+  {
+    "id": "3",
+    "title": "Ergonomic Desk Accessories",
+    "description": "A collection of sustainable desk accessories designed for remote workers.",
+    "category": "product-design",
+    "year": "2023",
+    "coverImage": "https://images.unsplash.com/photo-1609921212029-bb5a28e60960?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxpbmR1c3RyaWFsJTIwZGVzaWduJTIwd29ya3NwYWNlfGVufDF8fHx8MTc2MDY2Nzk4Mnww&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1609921212029-bb5a28e60960?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxpbmR1c3RyaWFsJTIwZGVzaWduJTIwd29ya3NwYWNlfGVufDF8fHx8MTc2MDY2Nzk4Mnww&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "role": "Product Designer",
+    "tools": [
+      "SolidWorks",
+      "Blender",
+      "Adobe CC"
+    ],
+    "challenges": "Creating affordable, sustainable products that improve workspace ergonomics.",
+    "solution": "Designed modular accessories using recycled materials with minimal assembly required.",
+    "outcome": "Product line launched successfully with 10k+ units sold in first quarter.",
+    "contentBlocks": [],
+    "link": "",
+    "featured": true,
+    "views": 70,
+    "viewHistory": [
+      {
+        "timestamp": 1760947372530,
+        "ip": "::1",
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/141.0.0.0 Safari/537.36 Edg/141.0.0.0"
+      },
+      {
+        "timestamp": 1760983719885,
+        "ip": "::1",
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36 Edg/141.0.0.0"
+      },
+      {
+        "timestamp": 1760984116127,
+        "ip": "::1",
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36 Edg/141.0.0.0"
+      },
+      {
+        "timestamp": 1760984327367,
+        "ip": "::1",
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36 Edg/141.0.0.0"
+      },
+      {
+        "timestamp": 1760986840827,
+        "ip": "::1",
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36 Edg/141.0.0.0"
+      },
+      {
+        "timestamp": 1760986850988,
+        "ip": "::1",
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36 Edg/141.0.0.0"
+      },
+      {
+        "timestamp": 1760986994022,
+        "ip": "::1",
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36 Edg/141.0.0.0"
+      },
+      {
+        "timestamp": 1760987418758,
+        "ip": "::1",
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36 Edg/141.0.0.0"
+      }
+    ]
+  },
+  {
+    "title": "new test project",
+    "description": "123",
+    "category": "industrial-design",
+    "year": "2025",
+    "coverImage": "http://localhost:4000/uploads/upload-1760950607212-9jat1y-rodeo-project-management-software-pyqzyhtnjho-unsplash.jpg",
+    "images": [],
+    "role": "123",
+    "tools": [],
+    "challenges": "123",
+    "solution": "123",
+    "outcome": "123",
+    "contentBlocks": [
+      {
+        "id": "1760950617513",
+        "type": "image",
+        "title": "",
+        "description": "",
+        "image": "http://localhost:4000/uploads/upload-1760950622085-wlrcra-simon-karemann-p85-mg66gry-unsplash.jpg"
+      }
+    ],
+    "link": "",
+    "featured": true,
+    "views": 10,
+    "id": "proj_mgywjahs0lvy49",
+    "viewHistory": [
+      {
+        "timestamp": 1760950806053,
+        "ip": "::1",
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36 Edg/141.0.0.0"
+      },
+      {
+        "timestamp": 1760954712532,
+        "ip": "::1",
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36 Edg/141.0.0.0"
+      },
+      {
+        "timestamp": 1760968364862,
+        "ip": "::1",
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36 Edg/141.0.0.0"
+      },
+      {
+        "timestamp": 1760982262951,
+        "ip": "::1",
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36 Edg/141.0.0.0"
+      },
+      {
+        "timestamp": 1760982268733,
+        "ip": "::1",
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36 Edg/141.0.0.0"
+      },
+      {
+        "timestamp": 1760982758025,
+        "ip": "::1",
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36 Edg/141.0.0.0"
+      },
+      {
+        "timestamp": 1760982872757,
+        "ip": "::1",
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36 Edg/141.0.0.0"
+      },
+      {
+        "timestamp": 1760983041668,
+        "ip": "::1",
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36 Edg/141.0.0.0"
+      },
+      {
+        "timestamp": 1760984331849,
+        "ip": "::1",
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36 Edg/141.0.0.0"
+      },
+      {
+        "timestamp": 1760985810838,
+        "ip": "::1",
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36 Edg/141.0.0.0"
+      }
+    ]
+  },
+  {
+    "title": "123",
+    "description": "123",
+    "category": "industrial-design",
+    "year": "2025",
+    "coverImage": "http://localhost:4000/uploads/projects/proj_mgyyz6jzi3q1tc/upload-1760954736646-09og1m-rodeo-project-management-software-pyqzyhtnjho-unsplash.jpg",
+    "images": [],
+    "role": "UX Researcher",
+    "tools": [],
+    "challenges": "12",
+    "solution": "12",
+    "outcome": "12",
+    "contentBlocks": [],
+    "link": "",
+    "featured": false,
+    "views": 3,
+    "id": "proj_mgyyz6jzi3q1tc",
+    "viewHistory": [
+      {
+        "timestamp": 1760955276723,
+        "ip": "::1",
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36 Edg/141.0.0.0"
+      },
+      {
+        "timestamp": 1760983243518,
+        "ip": "::1",
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36 Edg/141.0.0.0"
+      },
+      {
+        "timestamp": 1760984347132,
+        "ip": "::1",
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36 Edg/141.0.0.0"
+      }
+    ]
+  }
+]

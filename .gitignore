@@ -1,0 +1,12 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+build/
+
+# Runtime data
+server/data/db.json
+
+# OS files
+.DS_Store
