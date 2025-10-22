@@ -58,5 +58,6 @@
       host: true,
       port: 3000,
       open: true,
+      allowedHosts: ['jarvis-pi.dynv6.net'],
     },
   });

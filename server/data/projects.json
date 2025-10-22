@@ -266,7 +266,7 @@
     ],
     "link": "",
     "featured": true,
-    "views": 10,
+    "views": 11,
     "id": "proj_mgywjahs0lvy49",
     "viewHistory": [
       {
@@ -317,6 +317,11 @@
       {
         "timestamp": 1760985810838,
         "ip": "::1",
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36 Edg/141.0.0.0"
+      },
+      {
+        "timestamp": 1761150570524,
+        "ip": "::ffff:221.127.120.38",
         "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36 Edg/141.0.0.0"
       }
     ]
