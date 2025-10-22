@@ -1,11 +1,13 @@
-
-  # Personal Website
-
-  This is a code bundle for Personal Website. The original project is available at https://www.figma.com/design/aJ622OXvHKwiye18DBPbIZ/Personal-Website.
-
-  ## Running the code
+## Running the code
 
 Run `npm i` to install the dependencies.
+
+### Linux quick start
+
+1. Install Node.js 20.x and npm (for Debian/Ubuntu-like distros: `curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash - && sudo apt install nodejs`).
+2. Clone or copy this repository to your Linux host.
+3. Make the helper script executable: `chmod +x run-dev.sh`.
+4. Start both servers with `./run-dev.sh`. The script installs dependencies on first run, then launches the API (`npm run server`) and the Vite dev server (`npm run dev`) together. Stop with `Ctrl+C`, which shuts both down cleanly.
 
 ## Development
 

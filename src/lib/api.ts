@@ -1,4 +1,21 @@
-const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:4000/api';
+const DEFAULT_API_PORT = import.meta.env.VITE_API_PORT || '4000';
+
+function resolveApiBase(): string {
+  const configured = import.meta.env.VITE_API_URL;
+  if (typeof configured === 'string' && configured.trim().length > 0) {
+    return configured.replace(/\/$/, '');
+  }
+
+  if (typeof window !== 'undefined') {
+    const { protocol, hostname } = window.location;
+    const portSegment = DEFAULT_API_PORT ? `:${DEFAULT_API_PORT}` : '';
+    return `${protocol}//${hostname}${portSegment}/api`.replace(/\/$/, '');
+  }
+
+  return `http://localhost:${DEFAULT_API_PORT}/api`;
+}
+
+const API_BASE = resolveApiBase();
 
 type RequestOptions = RequestInit & {
   auth?: boolean;

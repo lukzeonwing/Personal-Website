@@ -797,20 +797,13 @@ async function bootstrap() {
     const providedId = typeof payload.id === 'string' ? sanitizeIdentifier(payload.id) : '';
     const storyId = providedId || generateId('story_');
 
-    const {
-      contentBlocks = [],
-      views = 0,
-      featured: _deprecatedFeatured,
-      viewHistory: _ignoredViewHistory,
-      ...storyData
-    } = payload;
+    const { contentBlocks = [], views = 0, featured: _deprecatedFeatured, ...storyData } = payload;
 
     const newStory = {
       ...storyData,
       id: storyId,
       views,
-      contentBlocks,
-      viewHistory: []
+      contentBlocks
     };
 
     data.stories.push(newStory);
@@ -826,17 +819,12 @@ async function bootstrap() {
 
     const existing = data.stories[index];
     const updates = req.body || {};
-    const {
-      featured: _deprecatedFeatured,
-      viewHistory: _ignoredViewHistory,
-      ...updateData
-    } = updates;
+    const { featured: _deprecatedFeatured, ...updateData } = updates;
 
     const updatedStory = {
       ...existing,
       ...updateData,
-      id: existing.id,
-      viewHistory: existing.viewHistory || []
+      id: existing.id
     };
 
     data.stories[index] = updatedStory;
@@ -865,19 +853,7 @@ async function bootstrap() {
       return res.status(404).json({ message: 'Story not found' });
     }
 
-    const ip = getClientIp(req);
-    if (data.bannedIps.some((entry) => entry.ip === ip)) {
-      return res.status(403).json({ message: 'View blocked: IP address is banned' });
-    }
-
-    const viewRecord = {
-      timestamp: Date.now(),
-      ip,
-      userAgent: req.headers['user-agent'] || 'Unknown'
-    };
-
     story.views = (story.views || 0) + 1;
-    story.viewHistory = [...(story.viewHistory || []), viewRecord];
     await saveData();
     return res.json({ views: story.views });
   });
