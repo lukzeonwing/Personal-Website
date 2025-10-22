@@ -1,5 +1,6 @@
 import { api } from './api';
 import { Project } from '../types/project';
+import type { Story } from '../types/story';
 
 export type ProjectPayload = Omit<Project, 'id' | 'viewHistory'> & {
   id?: string;
@@ -60,11 +61,32 @@ export const getMostViewedProjects = (projects: Project[], limit = 5): Project[]
     .slice(0, limit);
 };
 
-export const getIPStats = (projects: Project[]): Array<{ ip: string; views: number; lastView: number }> => {
+export const getIPStats = (
+  projects: Project[],
+  stories: Story[] = []
+): Array<{ ip: string; views: number; lastView: number }> => {
   const ipMap = new Map<string, { views: number; lastView: number }>();
 
   projects.forEach((project) => {
     const history = project.viewHistory || [];
+    history.forEach((view) => {
+      const current = ipMap.get(view.ip);
+      if (current) {
+        ipMap.set(view.ip, {
+          views: current.views + 1,
+          lastView: Math.max(current.lastView, view.timestamp),
+        });
+      } else {
+        ipMap.set(view.ip, {
+          views: 1,
+          lastView: view.timestamp,
+        });
+      }
+    });
+  });
+
+  stories.forEach((story) => {
+    const history = story.viewHistory || [];
     history.forEach((view) => {
       const current = ipMap.get(view.ip);
       if (current) {

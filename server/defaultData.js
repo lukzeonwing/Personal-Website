@@ -126,7 +126,8 @@ const stories = [
         description: 'Shot primarily with a 35mm lens at f/2.8, using available light from storefronts and street lamps. The key was to remain invisible, letting moments unfold naturally without interference.'
       }
     ],
-    views: 245
+    views: 245,
+    viewHistory: []
   },
   {
     id: '2',
@@ -161,7 +162,8 @@ const stories = [
         image: 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800'
       }
     ],
-    views: 189
+    views: 189,
+    viewHistory: []
   },
   {
     id: '3',
@@ -189,7 +191,8 @@ const stories = [
         image: 'https://images.unsplash.com/photo-1492571350019-22de08371fd3?w=800'
       }
     ],
-    views: 156
+    views: 156,
+    viewHistory: []
   },
   {
     id: '4',
@@ -219,7 +222,8 @@ const stories = [
         description: "Portrait photography is about connection. It's not just pointing a camera at someone – it's about understanding their story, earning their trust, and capturing their essence. Some of my favorite shots came from hour-long conversations over mint tea."
       }
     ],
-    views: 132
+    views: 132,
+    viewHistory: []
   },
   {
     id: '5',
@@ -255,7 +259,8 @@ const stories = [
       }
     ],
     featured: true,
-    views: 198
+    views: 198,
+    viewHistory: []
   }
 ];
 

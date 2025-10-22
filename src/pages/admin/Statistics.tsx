@@ -1,12 +1,14 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { getProjects, getTotalViews, getIPStats } from '../../lib/projects';
+import { getStories } from '../../lib/stories';
 import { getCategories, getCategoryLabel } from '../../lib/categories';
 import { getBannedIPs, banIP, unbanIP, isIPBanned } from '../../lib/bannedIps';
 import { Card, CardContent, CardHeader, CardTitle } from '../../components/ui/card';
 import { Button } from '../../components/ui/button';
 import { Eye, TrendingUp, ArrowLeft, ExternalLink, Clock, Globe, Shield, ShieldAlert, ShieldOff } from 'lucide-react';
 import { Project, ViewRecord } from '../../types/project';
+import type { Story } from '../../types/story';
 import type { Category } from '../../lib/categories';
 import type { BannedIP } from '../../lib/bannedIps';
 import {
@@ -43,11 +45,52 @@ import { toast } from 'sonner';
 
 export function Statistics() {
   const [projects, setProjects] = useState<Project[]>([]);
+  const [stories, setStories] = useState<Story[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
   const [bannedIPs, setBannedIPs] = useState<BannedIP[]>([]);
   const [banDialogOpen, setBanDialogOpen] = useState(false);
   const [selectedIP, setSelectedIP] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+
+  const userTimeZone = useMemo(
+    () => Intl.DateTimeFormat().resolvedOptions().timeZone,
+    []
+  );
+  const dateTimeFormatter = useMemo(
+    () =>
+      new Intl.DateTimeFormat(undefined, {
+        timeZone: userTimeZone,
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        timeZoneName: 'short',
+        hour12: false,
+      }),
+    [userTimeZone]
+  );
+  const dateFormatter = useMemo(
+    () =>
+      new Intl.DateTimeFormat(undefined, {
+        timeZone: userTimeZone,
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric',
+      }),
+    [userTimeZone]
+  );
+  const timeFormatter = useMemo(
+    () =>
+      new Intl.DateTimeFormat(undefined, {
+        timeZone: userTimeZone,
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: false,
+      }),
+    [userTimeZone]
+  );
 
   const totalViews = useMemo(() => getTotalViews(projects), [projects]);
   const averageViews = useMemo(
@@ -59,24 +102,32 @@ export function Statistics() {
     [projects]
   );
   const regularViews = useMemo(() => totalViews - featuredViews, [totalViews, featuredViews]);
+  const totalContentViews = useMemo(() => {
+    const projectViews = projects.reduce((sum, project) => sum + (project.views || 0), 0);
+    const storyViews = stories.reduce((sum, story) => sum + (story.views || 0), 0);
+    return projectViews + storyViews;
+  }, [projects, stories]);
   const mostViewedProject = useMemo(() => (projects.length > 0 ? projects[0] : null), [projects]);
   const leastViewedProject = useMemo(
     () => (projects.length > 0 ? projects[projects.length - 1] : null),
     [projects]
   );
-  const ipStats = useMemo(() => getIPStats(projects), [projects]);
+  const ipStats = useMemo(() => getIPStats(projects, stories), [projects, stories]);
 
   const loadData = async () => {
     try {
       setIsLoading(true);
-      const [projectList, categoryList, bannedList] = await Promise.all([
+      const [projectList, storyList, categoryList, bannedList] = await Promise.all([
         getProjects(),
+        getStories(),
         getCategories(),
         getBannedIPs(),
       ]);
 
-      const sorted = [...projectList].sort((a, b) => (b.views || 0) - (a.views || 0));
-      setProjects(sorted);
+      const sortedProjects = [...projectList].sort((a, b) => (b.views || 0) - (a.views || 0));
+      const sortedStories = [...storyList].sort((a, b) => (b.views || 0) - (a.views || 0));
+      setProjects(sortedProjects);
+      setStories(sortedStories);
       setCategories(categoryList);
       setBannedIPs(bannedList);
     } catch (error) {
@@ -125,76 +176,126 @@ export function Statistics() {
 
 
   const getCategoryStats = () => {
-    const categoryMap = projects.reduce((acc, project) => {
-      const cat = project.category;
-      if (!acc[cat]) {
-        acc[cat] = { count: 0, views: 0 };
+    const categoryMap = new Map<
+      string,
+      { projectCount: number; storyCount: number; views: number }
+    >();
+
+    const ensureEntry = (categoryId: string) => {
+      if (!categoryMap.has(categoryId)) {
+        categoryMap.set(categoryId, { projectCount: 0, storyCount: 0, views: 0 });
       }
-      acc[cat].count += 1;
-      acc[cat].views += project.views || 0;
-      return acc;
-    }, {} as Record<string, { count: number; views: number }>);
+      return categoryMap.get(categoryId)!;
+    };
+
+    projects.forEach((project) => {
+      const entry = ensureEntry(project.category);
+      entry.projectCount += 1;
+      entry.views += project.views || 0;
+    });
+
+    stories.forEach((story) => {
+      const entry = ensureEntry(story.category);
+      entry.storyCount += 1;
+      entry.views += story.views || 0;
+    });
+
+    const buildStat = (categoryId: string, label: string) => {
+      const data = categoryMap.get(categoryId) ?? {
+        projectCount: 0,
+        storyCount: 0,
+        views: 0,
+      };
+      const count = data.projectCount + data.storyCount;
+      return {
+        category: categoryId,
+        label,
+        projectCount: data.projectCount,
+        storyCount: data.storyCount,
+        count,
+        views: data.views,
+        avgViews: count > 0 ? Math.round(data.views / count) : 0,
+      };
+    };
 
     if (categories.length === 0) {
-      return Object.entries(categoryMap).map(([category, data]) => ({
-        category,
-        label: getCategoryLabel(category),
-        ...data,
-        avgViews: data.count > 0 ? Math.round(data.views / data.count) : 0,
-      }));
+      return Array.from(categoryMap.keys()).map((categoryId) =>
+        buildStat(categoryId, getCategoryLabel(categoryId))
+      );
     }
 
-    return categories.map((category) => {
-      const data = categoryMap[category.id] || { count: 0, views: 0 };
-      return {
-        category: category.id,
-        label: category.label,
-        ...data,
-        avgViews: data.count > 0 ? Math.round(data.views / data.count) : 0,
-      };
+    const stats = categories.map((category) =>
+      buildStat(category.id, category.label)
+    );
+
+    const knownIds = new Set(categories.map((category) => category.id));
+    categoryMap.forEach((_value, categoryId) => {
+      if (!knownIds.has(categoryId)) {
+        stats.push(buildStat(categoryId, getCategoryLabel(categoryId, categories)));
+      }
     });
+
+    return stats;
   };
 
   const getViewsByTime = () => {
     const allViews: ViewRecord[] = [];
-    projects.forEach(project => {
+
+    projects.forEach((project) => {
       if (project.viewHistory) {
         allViews.push(...project.viewHistory);
       }
     });
 
-    // Group by hour for last 24 hours
+    stories.forEach((story) => {
+      if (story.viewHistory) {
+        allViews.push(...story.viewHistory);
+      }
+    });
+
     const now = Date.now();
     const last24Hours = now - 24 * 60 * 60 * 1000;
-    const hourlyData: { [key: string]: number } = {};
+    const hourlyData: Array<{ label: string; timestamp: number; views: number }> =
+      [];
 
     for (let i = 23; i >= 0; i--) {
       const hourStart = new Date(now - i * 60 * 60 * 1000);
-      const key = hourStart.getHours().toString().padStart(2, '0') + ':00';
-      hourlyData[key] = 0;
+      hourStart.setMinutes(0, 0, 0);
+      hourlyData.push({
+        label: timeFormatter.format(hourStart),
+        timestamp: hourStart.getTime(),
+        views: 0,
+      });
     }
 
-    allViews.forEach(view => {
+    allViews.forEach((view) => {
       if (view.timestamp >= last24Hours) {
         const date = new Date(view.timestamp);
-        const key = date.getHours().toString().padStart(2, '0') + ':00';
-        if (hourlyData[key] !== undefined) {
-          hourlyData[key]++;
+        date.setMinutes(0, 0, 0);
+        const bucketTime = date.getTime();
+        const bucket = hourlyData.find((entry) => entry.timestamp === bucketTime);
+        if (bucket) {
+          bucket.views += 1;
         }
       }
     });
 
-    return Object.entries(hourlyData).map(([hour, views]) => ({
-      hour,
+    return hourlyData.map(({ label, views }) => ({
+      hour: label,
       views,
     }));
   };
 
   const getViewsByDay = () => {
     const allViews: ViewRecord[] = [];
-    projects.forEach(project => {
+    projects.forEach((project) => {
       if (project.viewHistory) {
         allViews.push(...project.viewHistory);
+      }
+    });
+    stories.forEach((story) => {
+      if (story.viewHistory) {
+        allViews.push(...story.viewHistory);
       }
     });
 
@@ -224,14 +325,38 @@ export function Statistics() {
   };
 
   const getRecentViews = () => {
-    const allViews: Array<ViewRecord & { projectTitle: string; projectId: string }> = [];
-    projects.forEach(project => {
+    const allViews: Array<
+      ViewRecord & {
+        itemTitle: string;
+        itemId: string;
+        itemType: 'project' | 'story';
+        adminPath: string;
+      }
+    > = [];
+
+    projects.forEach((project) => {
       if (project.viewHistory) {
-        project.viewHistory.forEach(view => {
+        project.viewHistory.forEach((view) => {
           allViews.push({
             ...view,
-            projectTitle: project.title,
-            projectId: project.id,
+            itemTitle: project.title,
+            itemId: project.id,
+            itemType: 'project',
+            adminPath: `/admin/projects/edit/${project.id}`,
+          });
+        });
+      }
+    });
+
+    stories.forEach((story) => {
+      if (story.viewHistory) {
+        story.viewHistory.forEach((view) => {
+          allViews.push({
+            ...view,
+            itemTitle: story.title,
+            itemId: story.id,
+            itemType: 'story',
+            adminPath: `/admin/stories/edit/${story.id}`,
           });
         });
       }
@@ -246,6 +371,30 @@ export function Statistics() {
   const viewsByTime = getViewsByTime();
   const viewsByDay = getViewsByDay();
   const recentViews = getRecentViews();
+  const performanceItems = useMemo(
+    () =>
+      [
+        ...projects.map((project) => ({
+          id: project.id,
+          title: project.title,
+          description: project.description,
+          category: project.category,
+          type: 'project' as const,
+          featured: project.featured,
+          views: project.views || 0,
+        })),
+        ...stories.map((story) => ({
+          id: story.id,
+          title: story.title,
+          description: story.description,
+          category: story.category,
+          type: 'story' as const,
+          featured: false,
+          views: story.views || 0,
+        })),
+      ].sort((a, b) => b.views - a.views),
+    [projects, stories]
+  );
 
   return (
     <div className="min-h-screen bg-muted/30">
@@ -383,32 +532,64 @@ export function Statistics() {
           <Card>
             <CardHeader>
               <CardTitle>Views by Category</CardTitle>
+              <p className="text-sm text-muted-foreground">
+                Projects and stories combined
+              </p>
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
-                {categoryStats.map((cat) => (
-                  <div key={cat.category}>
-                    <div className="flex justify-between items-center mb-2">
-                      <span>{cat.label}</span>
-                      <span className="text-muted-foreground">{cat.views} views</span>
-                    </div>
-                    <div className="flex items-center gap-3">
-                      <div className="flex-1 h-2 bg-muted rounded-full overflow-hidden">
-                        <div
-                          className={`h-full bg-primary progress-bar-${
-                            totalViews > 0 ? Math.round((cat.views / totalViews) * 100) : 0
-                          }`}
-                        />
+                {categoryStats.map((cat) => {
+                  const percent =
+                    totalContentViews > 0
+                      ? Math.round((cat.views / totalContentViews) * 100)
+                      : 0;
+                  const breakdownParts: string[] = [];
+                  if (cat.projectCount > 0) {
+                    breakdownParts.push(
+                      `${cat.projectCount} project${
+                        cat.projectCount === 1 ? '' : 's'
+                      }`
+                    );
+                  }
+                  if (cat.storyCount > 0) {
+                    breakdownParts.push(
+                      `${cat.storyCount} stor${
+                        cat.storyCount === 1 ? 'y' : 'ies'
+                      }`
+                    );
+                  }
+                  const entryLabel =
+                    cat.count === 1
+                      ? 'entry'
+                      : 'entries';
+                  const breakdownText =
+                    cat.count > 0 && breakdownParts.length > 0
+                      ? ` (${breakdownParts.join(' · ')})`
+                      : '';
+
+                  return (
+                    <div key={cat.category}>
+                      <div className="flex justify-between items-center mb-2">
+                        <span>{cat.label}</span>
+                        <span className="text-muted-foreground">{cat.views} views</span>
                       </div>
-                      <span className="text-sm text-muted-foreground w-12 text-right">
-                        {totalViews > 0 ? Math.round((cat.views / totalViews) * 100) : 0}%
-                      </span>
+                      <div className="flex items-center gap-3">
+                        <div className="flex-1 h-2 bg-muted rounded-full overflow-hidden">
+                          <div
+                            className={`h-full bg-primary progress-bar-${percent}`}
+                          />
+                        </div>
+                        <span className="text-sm text-muted-foreground w-12 text-right">
+                          {percent}%
+                        </span>
+                      </div>
+                      <p className="text-sm text-muted-foreground mt-1">
+                        {cat.count} {entryLabel}
+                        {breakdownText} · Avg {cat.avgViews} views
+                      </p>
                     </div>
-                    <p className="text-sm text-muted-foreground mt-1">
-                      {cat.count} {cat.count === 1 ? 'project' : 'projects'} · Avg {cat.avgViews} views
-                    </p>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             </CardContent>
           </Card>
@@ -420,6 +601,9 @@ export function Statistics() {
           <Card>
             <CardHeader>
               <CardTitle>Views by Hour (Last 24h)</CardTitle>
+              <p className="text-sm text-muted-foreground">
+                Times shown in your local timezone ({userTimeZone})
+              </p>
             </CardHeader>
             <CardContent>
               <div className="h-64">
@@ -441,6 +625,7 @@ export function Statistics() {
                         border: '1px solid hsl(var(--border))',
                         borderRadius: '6px',
                       }}
+                      labelFormatter={(label) => `${label} (${userTimeZone})`}
                     />
                     <Line 
                       type="monotone" 
@@ -459,6 +644,9 @@ export function Statistics() {
           <Card>
             <CardHeader>
               <CardTitle>Views by Day (Last 7 days)</CardTitle>
+              <p className="text-sm text-muted-foreground">
+                Day grouping reflects your timezone ({userTimeZone})
+              </p>
             </CardHeader>
             <CardContent>
               <div className="h-64">
@@ -469,6 +657,7 @@ export function Statistics() {
                       dataKey="day" 
                       stroke="hsl(var(--muted-foreground))"
                       fontSize={12}
+                      labelFormatter={(label) => `${label} (${userTimeZone})`}
                     />
                     <YAxis 
                       stroke="hsl(var(--muted-foreground))"
@@ -545,7 +734,7 @@ export function Statistics() {
                           <Badge variant="secondary">{ipStat.views}</Badge>
                         </TableCell>
                         <TableCell className="text-right text-sm text-muted-foreground">
-                          {new Date(ipStat.lastView).toLocaleDateString()}
+                          {dateFormatter.format(ipStat.lastView)}
                         </TableCell>
                         <TableCell className="text-right">
                           {isBanned ? (
@@ -613,7 +802,7 @@ export function Statistics() {
                           </div>
                         </TableCell>
                         <TableCell className="text-sm text-muted-foreground">
-                          {new Date(banned.bannedAt).toLocaleString()}
+                          {dateTimeFormatter.format(new Date(banned.bannedAt).getTime())}
                         </TableCell>
                         <TableCell className="text-right">
                           <Button
@@ -643,7 +832,7 @@ export function Statistics() {
             <Table>
               <TableHeader>
                 <TableRow>
-                  <TableHead>Project</TableHead>
+                  <TableHead>Content</TableHead>
                   <TableHead>IP Address</TableHead>
                   <TableHead>Time</TableHead>
                   <TableHead>User Agent</TableHead>
@@ -658,14 +847,19 @@ export function Statistics() {
                   </TableRow>
                 ) : (
                   recentViews.map((view, index) => (
-                    <TableRow key={`${view.timestamp}-${index}`}>
+                    <TableRow key={`${view.itemType}-${view.itemId}-${view.timestamp}-${index}`}>
                       <TableCell>
-                        <Link 
-                          to={`/admin/projects/edit/${view.projectId}`}
-                          className="hover:underline"
-                        >
-                          {view.projectTitle}
-                        </Link>
+                        <div className="flex items-center gap-2">
+                          <Badge variant={view.itemType === 'project' ? 'secondary' : 'outline'}>
+                            {view.itemType === 'project' ? 'Project' : 'Story'}
+                          </Badge>
+                          <Link 
+                            to={view.adminPath}
+                            className="hover:underline"
+                          >
+                            {view.itemTitle}
+                          </Link>
+                        </div>
                       </TableCell>
                       <TableCell>
                         <div className="flex items-center gap-2">
@@ -677,7 +871,7 @@ export function Statistics() {
                         <div className="flex items-center gap-2">
                           <Clock size={14} className="text-muted-foreground" />
                           <span className="text-sm">
-                            {new Date(view.timestamp).toLocaleString()}
+                            {dateTimeFormatter.format(view.timestamp)}
                           </span>
                         </div>
                       </TableCell>
@@ -694,74 +888,87 @@ export function Statistics() {
           </CardContent>
         </Card>
 
-        {/* All Projects Table */}
+        {/* All Content Table */}
         <Card>
           <CardHeader>
-            <CardTitle>All Projects Performance</CardTitle>
+            <CardTitle>Projects & Stories Performance</CardTitle>
+            <p className="text-sm text-muted-foreground">
+              Sorted by total views across all content types
+            </p>
           </CardHeader>
           <CardContent>
             <Table>
               <TableHeader>
                 <TableRow>
-                  <TableHead>Project</TableHead>
+                  <TableHead>Content</TableHead>
                   <TableHead>Category</TableHead>
-                  <TableHead>Status</TableHead>
+                  <TableHead>Type / Status</TableHead>
                   <TableHead className="text-right">Views</TableHead>
                   <TableHead className="text-right">Actions</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {projects.length === 0 ? (
+                {performanceItems.length === 0 ? (
                   <TableRow>
                     <TableCell colSpan={5} className="text-center text-muted-foreground">
-                      No projects yet
+                      No projects or stories yet
                     </TableCell>
                   </TableRow>
                 ) : (
-                  projects.map((project) => (
-                    <TableRow key={project.id}>
-                      <TableCell>
-                        <div>
-                          <div className="font-medium">{project.title}</div>
-                          <div className="text-sm text-muted-foreground line-clamp-1">
-                            {project.description}
+                  performanceItems.map((item) => {
+                    const isProject = item.type === 'project';
+                    const viewCount = item.views || 0;
+                    const publicPath = isProject ? `/projects/${item.id}` : `/stories/${item.id}`;
+                    const adminPath = isProject ? `/admin/projects/edit/${item.id}` : `/admin/stories/edit/${item.id}`;
+
+                    return (
+                      <TableRow key={`${item.type}-${item.id}`}>
+                        <TableCell>
+                          <div>
+                            <div className="font-medium">{item.title}</div>
+                            <div className="text-sm text-muted-foreground line-clamp-1">
+                              {item.description}
+                            </div>
                           </div>
-                        </div>
-                      </TableCell>
-                      <TableCell>
-                        <Badge variant="secondary">
-                          {getCategoryLabel(project.category)}
-                        </Badge>
-                      </TableCell>
-                      <TableCell>
-                        {project.featured ? (
-                          <Badge variant="default">Featured</Badge>
-                        ) : (
-                          <Badge variant="outline">Regular</Badge>
-                        )}
-                      </TableCell>
-                      <TableCell className="text-right">
-                        <div className="flex items-center justify-end gap-1">
-                          <Eye size={14} className="text-muted-foreground" />
-                          <span>{project.views || 0}</span>
-                        </div>
-                      </TableCell>
-                      <TableCell className="text-right">
-                        <div className="flex justify-end gap-2">
-                          <Link to={`/projects/${project.id}`} target="_blank">
-                            <Button variant="ghost" size="sm">
-                              <ExternalLink size={16} />
-                            </Button>
-                          </Link>
-                          <Link to={`/admin/projects/edit/${project.id}`}>
-                            <Button variant="outline" size="sm">
-                              Edit
-                            </Button>
-                          </Link>
-                        </div>
-                      </TableCell>
-                    </TableRow>
-                  ))
+                        </TableCell>
+                        <TableCell>
+                          <Badge variant="secondary">
+                            {getCategoryLabel(item.category, categories)}
+                          </Badge>
+                        </TableCell>
+                        <TableCell>
+                          <div className="flex flex-wrap gap-2">
+                            <Badge variant={isProject ? 'secondary' : 'outline'}>
+                              {isProject ? 'Project' : 'Story'}
+                            </Badge>
+                            {isProject && item.featured && (
+                              <Badge variant="default">Featured</Badge>
+                            )}
+                          </div>
+                        </TableCell>
+                        <TableCell className="text-right">
+                          <div className="flex items-center justify-end gap-1">
+                            <Eye size={14} className="text-muted-foreground" />
+                            <span>{viewCount}</span>
+                          </div>
+                        </TableCell>
+                        <TableCell className="text-right">
+                          <div className="flex justify-end gap-2">
+                            <Link to={publicPath} target="_blank">
+                              <Button variant="ghost" size="sm">
+                                <ExternalLink size={16} />
+                              </Button>
+                            </Link>
+                            <Link to={adminPath}>
+                              <Button variant="outline" size="sm">
+                                Edit
+                              </Button>
+                            </Link>
+                          </div>
+                        </TableCell>
+                      </TableRow>
+                    );
+                  })
                 )}
               </TableBody>
             </Table>

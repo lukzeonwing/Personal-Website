@@ -1,3 +1,5 @@
+import type { ViewRecord } from './project';
+
 export interface ContentBlock {
   id: string;
   type: 'image' | 'text' | 'image-text';
@@ -18,4 +20,5 @@ export interface Story {
   content: string;
   contentBlocks: ContentBlock[];
   views: number;
+  viewHistory?: ViewRecord[];
 }
