@@ -20,6 +20,9 @@ import { AdminStories } from './pages/admin/AdminStories';
 import { NewStory } from './pages/admin/NewStory';
 import { EditStory } from './pages/admin/EditStory';
 import { Statistics } from './pages/admin/Statistics';
+import { StatisticsCategories } from './pages/admin/StatisticsCategories';
+import { StatisticsRecentViews } from './pages/admin/StatisticsRecentViews';
+import { StatisticsPerformance } from './pages/admin/StatisticsPerformance';
 import { Messages } from './pages/admin/Messages';
 import { SiteContent } from './pages/admin/SiteContent';
 import { Toaster } from './components/ui/sonner';
@@ -102,6 +105,30 @@ export default function App() {
               <>
                 <AdminNavigation />
                 <Statistics />
+              </>
+            </ProtectedRoute>
+          } />
+          <Route path="/admin/statistics/categories" element={
+            <ProtectedRoute>
+              <>
+                <AdminNavigation />
+                <StatisticsCategories />
+              </>
+            </ProtectedRoute>
+          } />
+          <Route path="/admin/statistics/recent-views" element={
+            <ProtectedRoute>
+              <>
+                <AdminNavigation />
+                <StatisticsRecentViews />
+              </>
+            </ProtectedRoute>
+          } />
+          <Route path="/admin/statistics/performance" element={
+            <ProtectedRoute>
+              <>
+                <AdminNavigation />
+                <StatisticsPerformance />
               </>
             </ProtectedRoute>
           } />

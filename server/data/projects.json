@@ -41,7 +41,7 @@
     ],
     "link": "",
     "featured": true,
-    "views": 155,
+    "views": 156,
     "viewHistory": [
       {
         "timestamp": 1760946995259,
@@ -92,6 +92,11 @@
         "timestamp": 1760986095786,
         "ip": "::1",
         "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36 Edg/141.0.0.0"
+      },
+      {
+        "timestamp": 1761134914960,
+        "ip": "::1",
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36 Edg/141.0.0.0"
       }
     ]
   },
@@ -118,7 +123,7 @@
     "contentBlocks": [],
     "link": "",
     "featured": true,
-    "views": 98,
+    "views": 99,
     "viewHistory": [
       {
         "timestamp": 1760955803808,
@@ -162,6 +167,11 @@
       },
       {
         "timestamp": 1760990089260,
+        "ip": "::1",
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36 Edg/141.0.0.0"
+      },
+      {
+        "timestamp": 1761140638366,
         "ip": "::1",
         "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36 Edg/141.0.0.0"
       }
