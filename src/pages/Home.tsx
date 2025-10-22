@@ -76,7 +76,7 @@ export function Home() {
           <div className="max-w-3xl">
             <div className="mb-6">
               <span className="text-2xl md:text-3xl text-muted-foreground block">Hi! I am Lu Junrong</span>
-              <h1 className="text-5xl md:text-6xl lg:text-7xl font-semibold">JARVIS</h1>
+              <h1 className="text-5xl md:text-6xl lg:text-7xl font-semibold text-primary">JARVIS</h1>
             </div>
             <p className="text-xl md:text-2xl text-muted-foreground mb-8">
               A Industrial Designer, UX & Human Factor Researcher, interested in product system design, UI/UX, design research, and 3D printing solutions.
