@@ -567,7 +567,7 @@ export function Statistics() {
                       dataKey="day" 
                       stroke="hsl(var(--muted-foreground))"
                       fontSize={12}
-                      labelFormatter={(label) => `${label} (${userTimeZone})`}
+                      tickFormatter={(label) => `${label} (${userTimeZone})`}
                     />
                     <YAxis 
                       stroke="hsl(var(--muted-foreground))"
