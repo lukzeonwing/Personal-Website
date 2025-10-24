@@ -80,7 +80,7 @@ export function Footer() {
           <div className="md:col-span-2">
             <h3 className="mb-4">Lu Junrong Jarvis</h3>
             <p className="text-muted-foreground mb-4">
-              Industrial Designer & UX Researcher creating human-centered products through design and research.
+              Industrial Designer & HCI Researcher creating human-centered products through design and research.
             </p>
             <div className="flex gap-4 flex-wrap">
               {contactLinks.map(({ key, href, Icon, external, label }) => (
@@ -134,8 +134,8 @@ export function Footer() {
             <ul className="space-y-2 text-muted-foreground">
               <li>Industrial Design</li>
               <li>Service Design</li>
-              <li>UX Research</li>
-              <li>UI Design</li>
+              <li>HCI Research</li>
+              <li>UI/UX Design</li>
             </ul>
           </div>
         </div>
