@@ -7,7 +7,7 @@ import type { Category } from '../../lib/categories';
 import { Button } from '../../components/ui/button';
 import { Card } from '../../components/ui/card';
 import { Badge } from '../../components/ui/badge';
-import { Plus, Edit, Trash2, Star, Tag, Settings, AlertTriangle } from 'lucide-react';
+import { Plus, Edit, Trash2, Star, Tag, Book, AlertTriangle } from 'lucide-react';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -160,7 +160,10 @@ export function AdminProjects() {
 
         <Tabs defaultValue="projects" className="space-y-6">
           <TabsList>
-            <TabsTrigger value="projects">Projects</TabsTrigger>
+            <TabsTrigger value="projects">
+              <Book className="mr-2" size={16} />
+              Projects
+            </TabsTrigger>
             <TabsTrigger value="categories">
               <Tag className="mr-2" size={16} />
               Categories
@@ -183,7 +186,7 @@ export function AdminProjects() {
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {projects.map(project => (
                   <Card key={project.id} className="overflow-hidden flex flex-col">
-                    <div className="aspect-[4/3] bg-muted">
+                    <div className="aspect-[4/3] overflow-hidden bg-muted">
                       <ImageWithFallback
                         src={project.coverImage}
                         alt={project.title}

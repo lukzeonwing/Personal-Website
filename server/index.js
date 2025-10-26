@@ -15,6 +15,7 @@ const UPLOADS_DIR = path.join(__dirname, 'uploads');
 const WORKSHOP_GALLERY_DIR = path.join(UPLOADS_DIR, 'workshop');
 const WORKSHOP_GALLERY_WEB_PATH = '/uploads/workshop';
 const JWT_SECRET = process.env.JWT_SECRET || 'replace-with-strong-secret';
+const ADMIN_USERNAME = process.env.ADMIN_USERNAME || 'Jarvis-Admin';
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'admin123';
 const BODY_SIZE_LIMIT = process.env.BODY_SIZE_LIMIT || '250mb';
 
@@ -525,9 +526,14 @@ async function bootstrap() {
 
   // Authentication
   app.post('/api/auth/login', async (req, res) => {
-    const { password } = req.body || {};
-    if (!password) {
-      return res.status(400).json({ message: 'Password is required' });
+    const { username, password } = req.body || {};
+    if (!username || !password) {
+      return res.status(400).json({ message: 'Username and password are required' });
+    }
+
+    const providedUsername = String(username).trim();
+    if (providedUsername !== ADMIN_USERNAME) {
+      return res.status(401).json({ message: 'Invalid credentials' });
     }
 
     let isValid = verifyPassword(password, data.adminPasswordHash);

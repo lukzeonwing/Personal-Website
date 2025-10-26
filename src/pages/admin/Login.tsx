@@ -10,6 +10,7 @@ import { Lock } from 'lucide-react';
 
 export function Login() {
   const navigate = useNavigate();
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -17,12 +18,19 @@ export function Login() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
+
+    const trimmedUsername = username.trim();
+    if (!trimmedUsername) {
+      setError('Username is required');
+      return;
+    }
+
     try {
       setIsSubmitting(true);
-      await login(password);
+      await login(trimmedUsername, password);
       navigate('/admin');
     } catch (err) {
-      const message = err instanceof Error ? err.message : 'Invalid password. Please try again.';
+      const message = err instanceof Error ? err.message : 'Invalid credentials. Please try again.';
       setError(message);
     } finally {
       setIsSubmitting(false);
@@ -50,14 +58,27 @@ export function Login() {
             )}
             
             <div>
+              <Label htmlFor="username">Account</Label>
+              <Input
+                id="account"
+                type="account"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                autoComplete="account"
+                required
+                autoFocus
+              />
+            </div>
+            
+            <div>
               <Label htmlFor="password">Password</Label>
               <Input
                 id="password"
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+                autoComplete="password"
                 required
-                autoFocus
               />
             </div>
             

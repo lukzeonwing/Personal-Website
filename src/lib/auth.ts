@@ -4,8 +4,8 @@ interface LoginResponse {
   token: string;
 }
 
-export const login = async (password: string): Promise<boolean> => {
-  const response = await api.post<LoginResponse>('/auth/login', { password });
+export const login = async (username: string, password: string): Promise<boolean> => {
+  const response = await api.post<LoginResponse>('/auth/login', { username, password });
   storeAuthToken(response.token);
   return true;
 };
@@ -17,6 +17,20 @@ export const logout = (): void => {
 export const isAuthenticated = (): boolean => {
   if (typeof window === 'undefined') return false;
   return Boolean(localStorage.getItem(AUTH_STORAGE_KEY));
+};
+
+export const verifySession = async (): Promise<boolean> => {
+  if (!isAuthenticated()) {
+    return false;
+  }
+
+  try {
+    await api.get('/auth/me', { auth: true });
+    return true;
+  } catch (error) {
+    clearAuthToken();
+    throw error;
+  }
 };
 
 interface UpdatePasswordResponse {

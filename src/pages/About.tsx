@@ -39,7 +39,7 @@ export function About() {
               ))}
             </div>
           </div>
-          <div className="aspect-square rounded-lg overflow-hidden bg-muted">
+          <div className="relative min-h-[40vh] flex items-center">
             <ImageWithFallback
               src={content.heroImage}
               alt="About me"
