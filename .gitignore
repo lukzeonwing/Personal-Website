@@ -6,7 +6,7 @@ dist/
 build/
 
 # Runtime data
-server/data/db.json
+server/data
 
 # OS files
 .DS_Store
