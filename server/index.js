@@ -310,6 +310,7 @@ function sanitizeAboutContent(payload) {
     heroImage: sanitizeString(payload.heroImage, fallback.heroImage),
     skills: sanitizeListGroups(payload.skills, fallback.skills),
     tools: sanitizeListGroups(payload.tools, fallback.tools),
+    workExperience: sanitizeEducation(payload.workExperience, fallback.workExperience),
     education: sanitizeEducation(payload.education, fallback.education),
   };
 }

@@ -269,121 +269,34 @@
     ]
   },
   {
-    "title": "new test project",
-    "description": "123",
-    "category": "industrial-design",
-    "year": "2025",
-    "coverImage": "http://localhost:4000/uploads/upload-1760950607212-9jat1y-rodeo-project-management-software-pyqzyhtnjho-unsplash.jpg",
-    "images": [],
-    "role": "123",
-    "tools": [],
-    "challenges": "123",
-    "solution": "123",
-    "outcome": "123",
-    "contentBlocks": [
-      {
-        "id": "1760950617513",
-        "type": "image",
-        "title": "",
-        "description": "",
-        "image": "http://localhost:4000/uploads/upload-1760950622085-wlrcra-simon-karemann-p85-mg66gry-unsplash.jpg"
-      }
+    "title": "Matrix — Emergence Necessity",
+    "description": "An interactive installation exploring Emergence Theory through a modular matrix system. Each module responds to external stimuli, demonstrating how simple units collectively create complex, emergent behaviors.",
+    "category": "product-design",
+    "year": "2024",
+    "coverImage": "http://jarvis-pi.dynv6.net:4000/uploads/projects/matrix-emergence-necessity/upload-1761647248543-8yipvv-dsc04463.jpg",
+    "images": [
+      "http://jarvis-pi.dynv6.net:4000/uploads/projects/matrix-emergence-necessity/upload-1761647288507-cxhkiv-project-4---brief.png",
+      "http://jarvis-pi.dynv6.net:4000/uploads/projects/matrix-emergence-necessity/upload-1761647292415-qdt4km-project-4---the-origin-of-matrix.png",
+      "http://jarvis-pi.dynv6.net:4000/uploads/projects/matrix-emergence-necessity/upload-1761647298566-vdxxpv-project-4---emergence-necessity.png",
+      "http://jarvis-pi.dynv6.net:4000/uploads/projects/matrix-emergence-necessity/upload-1761647302672-jt24ha-project-4---installation-design.png",
+      "http://jarvis-pi.dynv6.net:4000/uploads/projects/matrix-emergence-necessity/upload-1761647312294-g6lyfy-project-4---control.png",
+      "http://jarvis-pi.dynv6.net:4000/uploads/projects/matrix-emergence-necessity/upload-1761647318415-k73ybp-project-4---final-present.png"
     ],
-    "link": "",
-    "featured": true,
-    "views": 11,
-    "id": "proj_mgywjahs0lvy49",
-    "viewHistory": [
-      {
-        "timestamp": 1760950806053,
-        "ip": "::1",
-        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36 Edg/141.0.0.0"
-      },
-      {
-        "timestamp": 1760954712532,
-        "ip": "::1",
-        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36 Edg/141.0.0.0"
-      },
-      {
-        "timestamp": 1760968364862,
-        "ip": "::1",
-        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36 Edg/141.0.0.0"
-      },
-      {
-        "timestamp": 1760982262951,
-        "ip": "::1",
-        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36 Edg/141.0.0.0"
-      },
-      {
-        "timestamp": 1760982268733,
-        "ip": "::1",
-        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36 Edg/141.0.0.0"
-      },
-      {
-        "timestamp": 1760982758025,
-        "ip": "::1",
-        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36 Edg/141.0.0.0"
-      },
-      {
-        "timestamp": 1760982872757,
-        "ip": "::1",
-        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36 Edg/141.0.0.0"
-      },
-      {
-        "timestamp": 1760983041668,
-        "ip": "::1",
-        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36 Edg/141.0.0.0"
-      },
-      {
-        "timestamp": 1760984331849,
-        "ip": "::1",
-        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36 Edg/141.0.0.0"
-      },
-      {
-        "timestamp": 1760985810838,
-        "ip": "::1",
-        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36 Edg/141.0.0.0"
-      },
-      {
-        "timestamp": 1761150570524,
-        "ip": "::ffff:221.127.120.38",
-        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36 Edg/141.0.0.0"
-      }
-    ]
-  },
-  {
-    "title": "123",
-    "description": "123",
-    "category": "industrial-design",
-    "year": "2025",
-    "coverImage": "http://localhost:4000/uploads/projects/proj_mgyyz6jzi3q1tc/upload-1760954736646-09og1m-rodeo-project-management-software-pyqzyhtnjho-unsplash.jpg",
-    "images": [],
-    "role": "UX Researcher",
-    "tools": [],
-    "challenges": "12",
-    "solution": "12",
-    "outcome": "12",
+    "role": "Concept Development, Mechanical Design, Coding, System Integration",
+    "tools": [
+      "Unity",
+      "Shapr3D",
+      "C#",
+      "Raspberry Pi"
+    ],
+    "challenges": "Merging abstract emergence theory into a tangible interactive form.",
+    "solution": "Triangular motion modules with servo and sensor-based responsiveness controlled.",
+    "outcome": "Visualized emergent behaviors; showcased the aesthetic and conceptual synergy of motion and system interaction.",
     "contentBlocks": [],
-    "link": "",
-    "featured": false,
-    "views": 3,
-    "id": "proj_mgyyz6jzi3q1tc",
-    "viewHistory": [
-      {
-        "timestamp": 1760955276723,
-        "ip": "::1",
-        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36 Edg/141.0.0.0"
-      },
-      {
-        "timestamp": 1760983243518,
-        "ip": "::1",
-        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36 Edg/141.0.0.0"
-      },
-      {
-        "timestamp": 1760984347132,
-        "ip": "::1",
-        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36 Edg/141.0.0.0"
-      }
-    ]
+    "link": "https://youtu.be/t3h_mF45gQY",
+    "featured": true,
+    "views": 0,
+    "id": "matrix-emergence-necessity",
+    "viewHistory": []
   }
 ]

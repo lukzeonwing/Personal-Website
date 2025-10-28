@@ -260,7 +260,7 @@ export function SiteContent() {
 
             <Card>
               <CardHeader>
-                <CardTitle>Tools & Software</CardTitle>
+                <CardTitle>Hobbies & Interests</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 {aboutContent.tools.map((group, index) => (
@@ -268,9 +268,9 @@ export function SiteContent() {
                     <div className="flex items-start gap-4">
                       <div className="flex-1 space-y-3">
                         <div>
-                          <Label htmlFor={`tool-title-${index}`}>Section Title</Label>
+                          <Label htmlFor={`interest-title-${index}`}>Section Title</Label>
                           <Input
-                            id={`tool-title-${index}`}
+                            id={`interest-title-${index}`}
                             value={group.title}
                             onChange={(e) => {
                               const value = e.target.value;
@@ -283,9 +283,9 @@ export function SiteContent() {
                           />
                         </div>
                         <div>
-                          <Label htmlFor={`tool-items-${index}`}>Items (one per line)</Label>
+                          <Label htmlFor={`interest-items-${index}`}>Items (one per line)</Label>
                           <Textarea
-                            id={`tool-items-${index}`}
+                            id={`interest-items-${index}`}
                             rows={4}
                             value={listToText(group.items)}
                             onChange={(e) => {
@@ -326,7 +326,7 @@ export function SiteContent() {
                       tools: [
                         ...prev.tools,
                         {
-                          title: 'New Tool Group',
+                          title: 'New Interest Group',
                           items: [],
                         },
                       ],
@@ -334,7 +334,7 @@ export function SiteContent() {
                   }
                 >
                   <Plus size={16} className="mr-2" />
-                  Add Tool Group
+                  Add Interest Group
                 </Button>
               </CardContent>
             </Card>
@@ -415,6 +415,86 @@ export function SiteContent() {
                 >
                   <Plus size={16} className="mr-2" />
                   Add Education Entry
+                </Button>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <CardTitle>Work Experience</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                {aboutContent.workExperience.map((entry, index) => (
+                  <div key={entry.title + index} className="rounded-lg border border-border p-4">
+                    <div className="flex items-start gap-4">
+                      <div className="flex-1 space-y-3">
+                        <div>
+                          <Label htmlFor={`experience-title-${index}`}>Title</Label>
+                          <Input
+                            id={`experience-title-${index}`}
+                            value={entry.title}
+                            onChange={(e) => {
+                              const value = e.target.value;
+                              setAboutContent((prev) => {
+                                const nextExperience = [...prev.workExperience];
+                                nextExperience[index] = { ...nextExperience[index], title: value };
+                                return { ...prev, workExperience: nextExperience };
+                              });
+                            }}
+                          />
+                        </div>
+                        <div>
+                          <Label htmlFor={`experience-subtitle-${index}`}>Subtitle</Label>
+                          <Input
+                            id={`experience-subtitle-${index}`}
+                            value={entry.subtitle}
+                            onChange={(e) => {
+                              const value = e.target.value;
+                              setAboutContent((prev) => {
+                                const nextExperience = [...prev.workExperience];
+                                nextExperience[index] = { ...nextExperience[index], subtitle: value };
+                                return { ...prev, workExperience: nextExperience };
+                              });
+                            }}
+                          />
+                        </div>
+                      </div>
+                      <Button
+                        type="button"
+                        variant="ghost"
+                        size="icon"
+                        className="mt-2"
+                        onClick={() =>
+                          setAboutContent((prev) => ({
+                            ...prev,
+                            workExperience: prev.workExperience.filter((_, i) => i !== index),
+                          }))
+                        }
+                        disabled={aboutContent.workExperience.length === 1}
+                      >
+                        <Trash2 size={16} />
+                      </Button>
+                    </div>
+                  </div>
+                ))}
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={() =>
+                    setAboutContent((prev) => ({
+                      ...prev,
+                      workExperience: [
+                        ...prev.workExperience,
+                        {
+                          title: 'New Role',
+                          subtitle: '',
+                        },
+                      ],
+                    }))
+                  }
+                >
+                  <Plus size={16} className="mr-2" />
+                  Add Experience Entry
                 </Button>
               </CardContent>
             </Card>

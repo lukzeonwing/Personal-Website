@@ -31,22 +31,34 @@ export const DEFAULT_ABOUT_CONTENT: AboutContent = {
   ],
   tools: [
     {
-      title: 'Design Tools',
+      title: 'Creative Pursuits',
       items: [
-        'Rhino, SolidWorks, Fusion 360',
-        'Blender, KeyShot',
-        'Figma, Adobe Creative Suite',
-        'SketchUp, AutoCAD',
+        'Travel sketching & watercolor journaling',
+        'Street and landscape photography',
+        'Hands-on prototyping with reclaimed materials',
       ],
     },
     {
-      title: 'Research Tools',
+      title: 'Wellbeing & Community',
       items: [
-        'UserTesting, Maze',
-        'Miro, FigJam',
-        'Dovetail, Notion',
-        'Google Analytics, Hotjar',
+        'Weekend trail running and rock climbing',
+        'Hosting design critique meetups',
+        'Volunteering at local makerspaces',
       ],
+    },
+  ],
+  workExperience: [
+    {
+      title: 'Lead Industrial Designer',
+      subtitle: 'Studio Form - 2019 to Present',
+    },
+    {
+      title: 'UX Research Fellow',
+      subtitle: 'Human-Centered Design Lab - 2016 to 2019',
+    },
+    {
+      title: 'Product Design Intern',
+      subtitle: 'BrightWorks Innovation - Summer 2015',
     },
   ],
   education: [

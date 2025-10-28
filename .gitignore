@@ -6,7 +6,8 @@ dist/
 build/
 
 # Runtime data
-server/data
+server/data/
+uploads/
 
 # OS files
 .DS_Store

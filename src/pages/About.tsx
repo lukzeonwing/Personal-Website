@@ -66,7 +66,7 @@ export function About() {
           </div>
 
           <div>
-            <h2 className="text-3xl mb-6">Tools & Software</h2>
+            <h2 className="text-3xl mb-6">Hobbies & Interests</h2>
             <div className="space-y-6">
               {content.tools.map((group, index) => (
                 <div key={group.title + index}>
@@ -82,16 +82,31 @@ export function About() {
           </div>
         </div>
 
-        <div className="mt-20">
-          <h2 className="text-3xl mb-6">Education & Certifications</h2>
-          <div className="space-y-4">
-            {content.education.map((entry) => (
-              <div key={entry.title} className="border-l-2 border-primary pl-6 py-2">
-                <h3 className="mb-1">{entry.title}</h3>
-                <p className="text-muted-foreground">{entry.subtitle}</p>
-              </div>
-            ))}
+        <div className="mt-20 space-y-12">
+          <div>
+            <h2 className="text-3xl mb-6">Education & Certifications</h2>
+            <div className="space-y-4">
+              {content.education.map((entry) => (
+                <div key={entry.title} className="border-l-2 border-primary pl-6 py-2">
+                  <h3 className="mb-1">{entry.title}</h3>
+                  <p className="text-muted-foreground">{entry.subtitle}</p>
+                </div>
+              ))}
+            </div>
           </div>
+          {content.workExperience.length > 0 && (
+            <div>
+              <h2 className="text-3xl mb-6">Work Experience</h2>
+              <div className="space-y-4">
+                {content.workExperience.map((entry) => (
+                  <div key={entry.title} className="border-l-2 border-primary pl-6 py-2">
+                    <h3 className="mb-1">{entry.title}</h3>
+                    <p className="text-muted-foreground">{entry.subtitle}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>

@@ -16,6 +16,7 @@ export interface AboutContent {
   heroImage: string;
   skills: ListGroup[];
   tools: ListGroup[];
+  workExperience: EducationEntry[];
   education: EducationEntry[];
 }
 
