@@ -18,17 +18,39 @@ import { DEFAULT_ABOUT_CONTENT, DEFAULT_CONTACT_CONTENT } from '../../data/defau
 import { Plus, Trash2 } from 'lucide-react';
 import { toast } from 'sonner';
 
+const normalizeLineBreaks = (value: string) => value.replace(/\r\n/g, '\n');
+
 const paragraphsToText = (paragraphs: string[]) =>
-  paragraphs.map((paragraph) => paragraph.replace(/\r?\n/g, '')).join('\n');
+  normalizeLineBreaks(paragraphs.join('\n'));
 
 const textToParagraphs = (text: string) =>
-  text.split(/\r?\n/).filter((item) => item.length > 0);
+  normalizeLineBreaks(text).split('\n');
 
 const listToText = (items: string[]) =>
-  items.map((item) => item.replace(/\r?\n/g, '')).join('\n');
+  normalizeLineBreaks(items.join('\n'));
 
 const textToList = (text: string) =>
-  text.split(/\r?\n/).filter((item) => item.length > 0);
+  normalizeLineBreaks(text).split('\n');
+
+const sanitizeListEntries = (items: string[]) =>
+  items
+    .map((item) => normalizeLineBreaks(item).trim())
+    .filter((item) => item.length > 0);
+
+const sanitizeAboutContentData = (content: AboutContent): AboutContent => ({
+  ...content,
+  heroParagraphs: content.heroParagraphs
+    .map((paragraph) => normalizeLineBreaks(paragraph).trim())
+    .filter((paragraph) => paragraph.length > 0),
+  skills: content.skills.map((group) => ({
+    ...group,
+    items: sanitizeListEntries(group.items),
+  })),
+  tools: content.tools.map((group) => ({
+    ...group,
+    items: sanitizeListEntries(group.items),
+  })),
+});
 
 export function SiteContent() {
   const [aboutContent, setAboutContent] = useState<AboutContent>(DEFAULT_ABOUT_CONTENT);
@@ -75,7 +97,8 @@ export function SiteContent() {
   const handleSaveAbout = async () => {
     try {
       setIsSavingAbout(true);
-      const updated = await updateAboutContent(aboutContent);
+      const sanitized = sanitizeAboutContentData(aboutContent);
+      const updated = await updateAboutContent(sanitized);
       setAboutContent(updated);
       toast.success('About content updated');
     } catch (error) {

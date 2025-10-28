@@ -86,8 +86,8 @@ export function ProjectDetail() {
   }
   
   return (
-    <div className="min-h-screen py-12">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen py-20">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <Link to="/projects">
           <Button variant="ghost" className="mb-8">
             <ArrowLeft className="mr-2" size={18} />
@@ -96,7 +96,7 @@ export function ProjectDetail() {
         </Link>
         
         {/* Hero Image */}
-        <div className="aspect-[21/9] mb-8 rounded-lg overflow-hidden bg-muted">
+        <div className="mb-8 rounded-lg overflow-hidden bg-muted">
           <ImageWithFallback
             src={project.coverImage}
             alt={project.title}
@@ -216,7 +216,7 @@ export function ProjectDetail() {
             <h2 className="text-3xl mb-6">Project Gallery</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {project.images.map((image, index) => (
-                <div key={index} className="aspect-[4/3] rounded-lg overflow-hidden bg-muted">
+                <div key={index} className="rounded-lg overflow-hidden bg-muted">
                   <ImageWithFallback
                     src={image}
                     alt={`${project.title} - Image ${index + 1}`}

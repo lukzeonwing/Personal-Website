@@ -253,6 +253,7 @@ export function NewStory() {
                     variant="outline"
                     onClick={handleAddImage}
                     className="w-full"
+                    scrollToTopOnClick={false}
                   >
                     <Plus size={16} className="mr-2" />
                     Add Gallery Image
@@ -274,15 +275,33 @@ export function NewStory() {
                   <div className="text-center py-8 border-2 border-dashed border-border rounded-lg">
                     <p className="text-muted-foreground mb-4">No content blocks yet</p>
                     <div className="flex flex-wrap gap-2 justify-center">
-                      <Button type="button" variant="outline" size="sm" onClick={() => addContentBlock('image')}>
+                      <Button
+                        type="button"
+                        variant="outline"
+                        size="sm"
+                        onClick={() => addContentBlock('image')}
+                        scrollToTopOnClick={false}
+                      >
                         <ImageIcon size={16} className="mr-2" />
                         Add Image
                       </Button>
-                      <Button type="button" variant="outline" size="sm" onClick={() => addContentBlock('text')}>
+                      <Button
+                        type="button"
+                        variant="outline"
+                        size="sm"
+                        onClick={() => addContentBlock('text')}
+                        scrollToTopOnClick={false}
+                      >
                         <Type size={16} className="mr-2" />
                         Add Text
                       </Button>
-                      <Button type="button" variant="outline" size="sm" onClick={() => addContentBlock('image-text')}>
+                      <Button
+                        type="button"
+                        variant="outline"
+                        size="sm"
+                        onClick={() => addContentBlock('image-text')}
+                        scrollToTopOnClick={false}
+                      >
                         <Layers size={16} className="mr-2" />
                         Add Image + Text
                       </Button>
@@ -423,6 +442,7 @@ export function NewStory() {
                                 onClick={() => removeContentBlock(block.id)}
                                 aria-label="Remove content block"
                                 title="Remove content block"
+                                scrollToTopOnClick={false}
                               >
                                 <X size={16} />
                               </Button>
@@ -433,15 +453,33 @@ export function NewStory() {
                     </div>
                     
                     <div className="flex flex-wrap gap-2 pt-2">
-                      <Button type="button" variant="outline" size="sm" onClick={() => addContentBlock('image')}>
+                      <Button
+                        type="button"
+                        variant="outline"
+                        size="sm"
+                        onClick={() => addContentBlock('image')}
+                        scrollToTopOnClick={false}
+                      >
                         <ImageIcon size={16} className="mr-2" />
                         Add Image
                       </Button>
-                      <Button type="button" variant="outline" size="sm" onClick={() => addContentBlock('text')}>
+                      <Button
+                        type="button"
+                        variant="outline"
+                        size="sm"
+                        onClick={() => addContentBlock('text')}
+                        scrollToTopOnClick={false}
+                      >
                         <Type size={16} className="mr-2" />
                         Add Text
                       </Button>
-                      <Button type="button" variant="outline" size="sm" onClick={() => addContentBlock('image-text')}>
+                      <Button
+                        type="button"
+                        variant="outline"
+                        size="sm"
+                        onClick={() => addContentBlock('image-text')}
+                        scrollToTopOnClick={false}
+                      >
                         <Layers size={16} className="mr-2" />
                         Add Image + Text
                       </Button>

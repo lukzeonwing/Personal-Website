@@ -326,6 +326,7 @@ export function ProjectForm({ project, onSubmit }: ProjectFormProps) {
                         variant="ghost"
                         size="sm"
                         onClick={() => removeImage(index)}
+                        scrollToTopOnClick={false}
                       >
                         <X size={16} />
                       </Button>
@@ -362,7 +363,9 @@ export function ProjectForm({ project, onSubmit }: ProjectFormProps) {
               onChange={(e) => setCurrentTool(e.target.value)}
               placeholder="e.g., Figma, Rhino, Blender"
             />
-            <Button type="button" onClick={addTool}>Add</Button>
+            <Button type="button" onClick={addTool} scrollToTopOnClick={false}>
+              Add
+            </Button>
           </div>
           {formData.tools.length > 0 && (
             <div className="mt-3 flex flex-wrap gap-2">
@@ -435,15 +438,33 @@ export function ProjectForm({ project, onSubmit }: ProjectFormProps) {
             <div className="text-center py-8 border-2 border-dashed border-border rounded-lg">
               <p className="text-muted-foreground mb-4">No content blocks yet</p>
               <div className="flex flex-wrap gap-2 justify-center">
-                <Button type="button" variant="outline" size="sm" onClick={() => addContentBlock('image')}>
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  onClick={() => addContentBlock('image')}
+                  scrollToTopOnClick={false}
+                >
                   <ImageIcon size={16} className="mr-2" />
                   Add Image
                 </Button>
-                <Button type="button" variant="outline" size="sm" onClick={() => addContentBlock('text')}>
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  onClick={() => addContentBlock('text')}
+                  scrollToTopOnClick={false}
+                >
                   <Type size={16} className="mr-2" />
                   Add Text
                 </Button>
-                <Button type="button" variant="outline" size="sm" onClick={() => addContentBlock('image-text')}>
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  onClick={() => addContentBlock('image-text')}
+                  scrollToTopOnClick={false}
+                >
                   <Layers size={16} className="mr-2" />
                   Add Image + Text
                 </Button>
@@ -578,6 +599,7 @@ export function ProjectForm({ project, onSubmit }: ProjectFormProps) {
                         variant="ghost"
                         size="sm"
                         onClick={() => removeContentBlock(block.id)}
+                        scrollToTopOnClick={false}
                       >
                         <X size={16} />
                       </Button>
@@ -587,15 +609,33 @@ export function ProjectForm({ project, onSubmit }: ProjectFormProps) {
               </div>
               
               <div className="flex flex-wrap gap-2 pt-2">
-                <Button type="button" variant="outline" size="sm" onClick={() => addContentBlock('image')}>
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  onClick={() => addContentBlock('image')}
+                  scrollToTopOnClick={false}
+                >
                   <ImageIcon size={16} className="mr-2" />
                   Add Image
                 </Button>
-                <Button type="button" variant="outline" size="sm" onClick={() => addContentBlock('text')}>
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  onClick={() => addContentBlock('text')}
+                  scrollToTopOnClick={false}
+                >
                   <Type size={16} className="mr-2" />
                   Add Text
                 </Button>
-                <Button type="button" variant="outline" size="sm" onClick={() => addContentBlock('image-text')}>
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  onClick={() => addContentBlock('image-text')}
+                  scrollToTopOnClick={false}
+                >
                   <Layers size={16} className="mr-2" />
                   Add Image + Text
                 </Button>

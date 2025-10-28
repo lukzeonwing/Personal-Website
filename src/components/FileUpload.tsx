@@ -147,6 +147,7 @@ export function FileUpload({
             variant="outline"
             disabled={isUploading}
             onClick={handleBrowseClick}
+            scrollToTopOnClick={false}
           >
             <Upload size={16} className="mr-2" />
             Browse
@@ -158,6 +159,7 @@ export function FileUpload({
               size="icon"
               disabled={isUploading}
               onClick={onRemove}
+              scrollToTopOnClick={false}
             >
               <X size={16} />
             </Button>
