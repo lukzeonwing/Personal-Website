@@ -14,6 +14,7 @@ import { FileUpload } from './FileUpload';
 import { X, GripVertical, Image as ImageIcon, Type, Layers } from 'lucide-react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from './ui/tabs';
 import { toast } from 'sonner';
+import { resolveMediaUrl } from '../lib/api';
 
 const sanitizeIdFromTitle = (title: string): string => {
   return title
@@ -307,31 +308,35 @@ export function ProjectForm({ project, onSubmit }: ProjectFormProps) {
             <div className="space-y-3">
               {formData.images.length > 0 && (
                 <div className="space-y-2">
-                  {formData.images.map((img, index) => (
-                    <div key={index} className="flex items-center gap-2 p-3 bg-muted rounded-lg">
-                      {img && (
-                        <div className="w-16 h-16 rounded overflow-hidden bg-background flex-shrink-0">
-                          <img 
-                            src={img} 
-                            alt={`Image ${index + 1}`}
-                            className="w-full h-full object-cover"
-                          />
-                        </div>
-                      )}
-                      <span className="flex-1 truncate text-sm text-muted-foreground">
-                        {img.startsWith('data:') ? 'Uploaded image' : img}
-                      </span>
-                      <Button
-                        type="button"
-                        variant="ghost"
-                        size="sm"
-                        onClick={() => removeImage(index)}
-                        scrollToTopOnClick={false}
-                      >
-                        <X size={16} />
-                      </Button>
-                    </div>
-                  ))}
+                  {formData.images.map((img, index) => {
+                    const previewSrc =
+                      typeof img === 'string' ? resolveMediaUrl(img) ?? img : img
+                    return (
+                      <div key={index} className="flex items-center gap-2 p-3 bg-muted rounded-lg">
+                        {img && (
+                          <div className="w-16 h-16 rounded overflow-hidden bg-background flex-shrink-0">
+                            <img
+                              src={typeof previewSrc === 'string' ? previewSrc : undefined}
+                              alt={`Image ${index + 1}`}
+                              className="w-full h-full object-cover"
+                            />
+                          </div>
+                        )}
+                        <span className="flex-1 truncate text-sm text-muted-foreground">
+                          {img.startsWith('data:') ? 'Uploaded image' : img}
+                        </span>
+                        <Button
+                          type="button"
+                          variant="ghost"
+                          size="sm"
+                          onClick={() => removeImage(index)}
+                          scrollToTopOnClick={false}
+                        >
+                          <X size={16} />
+                        </Button>
+                      </div>
+                    )
+                  })}
                 </div>
               )}
               

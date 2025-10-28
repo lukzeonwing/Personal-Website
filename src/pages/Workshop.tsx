@@ -5,6 +5,7 @@ import { Button } from '../components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
 import { ImageWithFallback } from '../components/figma/ImageWithFallback';
 import { fetchWorkshopGalleryImages } from '../lib/uploads';
+import { resolveMediaUrl } from '../lib/api';
 
 export function Workshop() {
   const { hash } = useLocation();
@@ -21,11 +22,12 @@ export function Workshop() {
         }
 
         const photos = files.map(({ filename, url }) => {
+          const resolvedUrl = typeof url === 'string' ? resolveMediaUrl(url) ?? url : url;
           const altTextBase = filename.replace(/\.[^/.]+$/, '').replace(/[-_]/g, ' ').trim();
           const alt = altTextBase ? `Workshop gallery image ${altTextBase}` : 'Workshop gallery image';
 
           return {
-            src: url,
+            src: typeof resolvedUrl === 'string' ? resolvedUrl : url,
             alt,
           };
         });

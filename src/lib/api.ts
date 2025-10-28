@@ -17,6 +17,24 @@ function resolveApiBase(): string {
 
 const API_BASE = resolveApiBase();
 
+const API_BASE_URL = (() => {
+  try {
+    return new URL(API_BASE);
+  } catch (error) {
+    try {
+      if (typeof window !== 'undefined') {
+        return new URL(API_BASE, window.location.origin);
+      }
+      return new URL(API_BASE, `http://localhost:${DEFAULT_API_PORT}`);
+    } catch {
+      return null;
+    }
+  }
+})();
+
+const API_ORIGIN =
+  API_BASE_URL ? `${API_BASE_URL.protocol}//${API_BASE_URL.host}` : '';
+
 type RequestOptions = RequestInit & {
   auth?: boolean;
 };
@@ -111,4 +129,33 @@ export const api = {
     request<T>(path, { ...options, method: 'DELETE' }),
 };
 
-export { AUTH_STORAGE_KEY };
+export function resolveMediaUrl(path?: string | null): string | undefined {
+  if (typeof path !== 'string') {
+    return path ?? undefined;
+  }
+
+  const trimmed = path.trim();
+  if (trimmed.length === 0) {
+    return trimmed;
+  }
+
+  if (/^(?:https?:)?\/\//i.test(trimmed) || trimmed.startsWith('data:')) {
+    return trimmed;
+  }
+
+  if (!API_ORIGIN) {
+    return trimmed;
+  }
+
+  if (trimmed.startsWith('/uploads/')) {
+    return `${API_ORIGIN}${trimmed}`;
+  }
+
+  if (trimmed.startsWith('uploads/')) {
+    return `${API_ORIGIN}/${trimmed}`;
+  }
+
+  return trimmed;
+}
+
+export { AUTH_STORAGE_KEY, API_ORIGIN };

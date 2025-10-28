@@ -3,6 +3,7 @@ import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Upload, X } from 'lucide-react';
 import { uploadImage } from '../lib/uploads';
+import { resolveMediaUrl } from '../lib/api';
 
 interface FileUploadProps {
   value: string;
@@ -102,6 +103,11 @@ export function FileUpload({
     }
   };
 
+  const previewSrc =
+    value && !value.startsWith('data:')
+      ? resolveMediaUrl(value) ?? value
+      : value;
+
   return (
     <div className="space-y-2">
       <div 
@@ -179,7 +185,7 @@ export function FileUpload({
       {showPreview && value && (
         <div className="relative aspect-video w-full max-w-xs rounded-lg overflow-hidden bg-muted">
           <img 
-            src={value} 
+            src={typeof previewSrc === 'string' ? previewSrc : undefined} 
             alt="Preview" 
             className="w-full h-full object-cover"
           />
