@@ -4,14 +4,14 @@
     "description": "An interactive installation exploring Emergence Theory through a modular matrix system. Each module responds to external stimuli, demonstrating how simple units collectively create complex, emergent behaviors.",
     "category": "interactive-installation",
     "year": "2024",
-    "coverImage": "http://jarvis-pi.dynv6.net:4000/uploads/projects/matrix-emergence-necessity/upload-1761647248543-8yipvv-dsc04463.jpg",
+    "coverImage": "/uploads/projects/matrix-emergence-necessity/upload-1761647248543-8yipvv-dsc04463.jpg",
     "images": [
-      "http://jarvis-pi.dynv6.net:4000/uploads/projects/matrix-emergence-necessity/upload-1761647288507-cxhkiv-project-4---brief.png",
-      "http://jarvis-pi.dynv6.net:4000/uploads/projects/matrix-emergence-necessity/upload-1761647292415-qdt4km-project-4---the-origin-of-matrix.png",
-      "http://jarvis-pi.dynv6.net:4000/uploads/projects/matrix-emergence-necessity/upload-1761647298566-vdxxpv-project-4---emergence-necessity.png",
-      "http://jarvis-pi.dynv6.net:4000/uploads/projects/matrix-emergence-necessity/upload-1761647302672-jt24ha-project-4---installation-design.png",
-      "http://jarvis-pi.dynv6.net:4000/uploads/projects/matrix-emergence-necessity/upload-1761647312294-g6lyfy-project-4---control.png",
-      "http://jarvis-pi.dynv6.net:4000/uploads/projects/matrix-emergence-necessity/upload-1761647318415-k73ybp-project-4---final-present.png"
+      "/uploads/projects/matrix-emergence-necessity/upload-1761647288507-cxhkiv-project-4---brief.png",
+      "/uploads/projects/matrix-emergence-necessity/upload-1761647292415-qdt4km-project-4---the-origin-of-matrix.png",
+      "/uploads/projects/matrix-emergence-necessity/upload-1761647298566-vdxxpv-project-4---emergence-necessity.png",
+      "/uploads/projects/matrix-emergence-necessity/upload-1761647302672-jt24ha-project-4---installation-design.png",
+      "/uploads/projects/matrix-emergence-necessity/upload-1761647312294-g6lyfy-project-4---control.png",
+      "/uploads/projects/matrix-emergence-necessity/upload-1761647318415-k73ybp-project-4---final-present.png"
     ],
     "role": "Concept Development, Mechanical Design, Coding, System Integration",
     "tools": [
@@ -26,7 +26,7 @@
     "contentBlocks": [],
     "link": "https://youtu.be/t3h_mF45gQY",
     "featured": true,
-    "views": 22,
+    "views": 28,
     "id": "matrix-emergence-necessity",
     "viewHistory": [
       {
@@ -136,6 +136,36 @@
       },
       {
         "timestamp": 1761649232873,
+        "ip": "::ffff:221.127.120.38",
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36"
+      },
+      {
+        "timestamp": 1761653060807,
+        "ip": "::ffff:221.127.120.38",
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36"
+      },
+      {
+        "timestamp": 1761653124629,
+        "ip": "::ffff:221.127.120.38",
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36"
+      },
+      {
+        "timestamp": 1761653128961,
+        "ip": "::ffff:221.127.120.38",
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36"
+      },
+      {
+        "timestamp": 1761653835128,
+        "ip": "::ffff:221.127.120.38",
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36"
+      },
+      {
+        "timestamp": 1761653838574,
+        "ip": "::ffff:221.127.120.38",
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36"
+      },
+      {
+        "timestamp": 1761653857485,
         "ip": "::ffff:221.127.120.38",
         "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36"
       }

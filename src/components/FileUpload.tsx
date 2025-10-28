@@ -116,7 +116,7 @@ export function FileUpload({
       >
         <div className="flex-1">
           <Input
-            type="url"
+            type="text"
             value={value.startsWith('data:') ? '' : value}
             onChange={(e) => {
               setError(null);
