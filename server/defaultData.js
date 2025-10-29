@@ -13,7 +13,6 @@ const projects = [
     tools: ['Rhino', 'KeyShot', 'Figma', 'Arduino'],
     challenges: 'Users found existing thermostats confusing and often left them on default settings, wasting energy.',
     solution: 'Designed an intuitive interface with clear visual feedback and smart learning capabilities.',
-    outcome: '40% reduction in energy waste and 95% user satisfaction in testing.',
     contentBlocks: [
       {
         id: '1',
@@ -53,7 +52,6 @@ const projects = [
     tools: ['Miro', 'UserTesting', 'Dovetail', 'Figma'],
     challenges: 'Understanding accessibility needs and technology literacy barriers for senior users.',
     solution: 'Conducted in-depth interviews, usability testing, and created detailed personas and journey maps.',
-    outcome: 'Insights led to a 60% increase in app adoption among target demographic.',
     contentBlocks: [],
     link: '',
     featured: true,
@@ -74,7 +72,6 @@ const projects = [
     tools: ['SolidWorks', 'Blender', 'Adobe CC'],
     challenges: 'Creating affordable, sustainable products that improve workspace ergonomics.',
     solution: 'Designed modular accessories using recycled materials with minimal assembly required.',
-    outcome: 'Product line launched successfully with 10k+ units sold in first quarter.',
     contentBlocks: [],
     link: '',
     featured: false,
@@ -322,6 +319,20 @@ const about = {
     {
       title: 'Product Design Intern',
       subtitle: 'BrightWorks Innovation - Summer 2015',
+    },
+  ],
+  publications: [
+    {
+      title: 'Visual Framing and Viewer Engagement in Micro-Video Platforms',
+      subtitle: 'CHI 2026 (Full Paper, under review)',
+    },
+    {
+      title: 'PawPals: Service Design for Community-Led Stray Cat Care',
+      subtitle: 'Service Design Global Conference 2024',
+    },
+    {
+      title: 'Speculative Interfaces for Human-AI Co-Creation',
+      subtitle: 'IxDA Interaction Week 2023 — Research Poster',
     },
   ],
   education: [

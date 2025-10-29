@@ -46,7 +46,6 @@ export function ProjectForm({ project, onSubmit }: ProjectFormProps) {
     tools: project?.tools || [],
     challenges: project?.challenges || '',
     solution: project?.solution || '',
-    outcome: project?.outcome || '',
     contentBlocks: project?.contentBlocks || [],
     link: project?.link || '',
     featured: project?.featured || false,
@@ -420,16 +419,6 @@ export function ProjectForm({ project, onSubmit }: ProjectFormProps) {
             />
           </div>
           
-          <div>
-            <Label htmlFor="outcome">Outcome</Label>
-            <Textarea
-              id="outcome"
-              value={formData.outcome}
-              onChange={(e) => setFormData({ ...formData, outcome: e.target.value })}
-              required
-              rows={4}
-            />
-          </div>
         </CardContent>
       </Card>
       

@@ -61,6 +61,20 @@ export const DEFAULT_ABOUT_CONTENT: AboutContent = {
       subtitle: 'BrightWorks Innovation - Summer 2015',
     },
   ],
+  publications: [
+    {
+      title: 'Visual Framing and Viewer Engagement in Micro-Video Platforms',
+      subtitle: 'CHI 2026 (Full Paper, under review)',
+    },
+    {
+      title: 'PawPals: Service Design for Community-Led Stray Cat Care',
+      subtitle: 'Service Design Global Conference 2024',
+    },
+    {
+      title: 'Speculative Interfaces for Human-AI Co-Creation',
+      subtitle: 'IxDA Interaction Week 2023 — Research Poster',
+    },
+  ],
   education: [
     {
       title: 'Master of Industrial Design',

@@ -24,7 +24,6 @@ export interface Project {
   tools: string[];
   challenges: string;
   solution: string;
-  outcome: string;
   contentBlocks: ContentBlock[];
   link?: string;
   featured: boolean;

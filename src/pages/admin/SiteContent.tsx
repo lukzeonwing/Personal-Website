@@ -37,6 +37,12 @@ const sanitizeListEntries = (items: string[]) =>
     .map((item) => normalizeLineBreaks(item).trim())
     .filter((item) => item.length > 0);
 
+const sanitizeTimelineEntries = (entries: { title: string; subtitle: string }[]) =>
+  entries.map((entry) => ({
+    title: normalizeLineBreaks(entry.title).trim(),
+    subtitle: normalizeLineBreaks(entry.subtitle).trim(),
+  }));
+
 const sanitizeAboutContentData = (content: AboutContent): AboutContent => ({
   ...content,
   heroParagraphs: content.heroParagraphs
@@ -50,6 +56,9 @@ const sanitizeAboutContentData = (content: AboutContent): AboutContent => ({
     ...group,
     items: sanitizeListEntries(group.items),
   })),
+  workExperience: sanitizeTimelineEntries(content.workExperience),
+  publications: sanitizeTimelineEntries(content.publications ?? []),
+  education: sanitizeTimelineEntries(content.education),
 });
 
 export function SiteContent() {
@@ -206,7 +215,7 @@ export function SiteContent() {
               </CardHeader>
               <CardContent className="space-y-4">
                 {aboutContent.skills.map((group, index) => (
-                  <div key={group.title + index} className="rounded-lg border border-border p-4 space-y-3">
+                  <div key={`skill-${index}`} className="rounded-lg border border-border p-4 space-y-3">
                     <div className="flex items-start gap-4">
                       <div className="flex-1 space-y-3">
                         <div>
@@ -262,6 +271,7 @@ export function SiteContent() {
                 <Button
                   type="button"
                   variant="outline"
+                  scrollToTopOnClick={false}
                   onClick={() =>
                     setAboutContent((prev) => ({
                       ...prev,
@@ -287,7 +297,7 @@ export function SiteContent() {
               </CardHeader>
               <CardContent className="space-y-4">
                 {aboutContent.tools.map((group, index) => (
-                  <div key={group.title + index} className="rounded-lg border border-border p-4 space-y-3">
+                  <div key={`tool-${index}`} className="rounded-lg border border-border p-4 space-y-3">
                     <div className="flex items-start gap-4">
                       <div className="flex-1 space-y-3">
                         <div>
@@ -343,6 +353,7 @@ export function SiteContent() {
                 <Button
                   type="button"
                   variant="outline"
+                  scrollToTopOnClick={false}
                   onClick={() =>
                     setAboutContent((prev) => ({
                       ...prev,
@@ -368,7 +379,7 @@ export function SiteContent() {
               </CardHeader>
               <CardContent className="space-y-4">
                 {aboutContent.education.map((entry, index) => (
-                  <div key={entry.title + index} className="rounded-lg border border-border p-4">
+                  <div key={`education-${index}`} className="rounded-lg border border-border p-4">
                     <div className="flex items-start gap-4">
                       <div className="flex-1 space-y-3">
                         <div>
@@ -423,6 +434,7 @@ export function SiteContent() {
                 <Button
                   type="button"
                   variant="outline"
+                  scrollToTopOnClick={false}
                   onClick={() =>
                     setAboutContent((prev) => ({
                       ...prev,
@@ -448,7 +460,7 @@ export function SiteContent() {
               </CardHeader>
               <CardContent className="space-y-4">
                 {aboutContent.workExperience.map((entry, index) => (
-                  <div key={entry.title + index} className="rounded-lg border border-border p-4">
+                  <div key={`work-${index}`} className="rounded-lg border border-border p-4">
                     <div className="flex items-start gap-4">
                       <div className="flex-1 space-y-3">
                         <div>
@@ -503,6 +515,7 @@ export function SiteContent() {
                 <Button
                   type="button"
                   variant="outline"
+                  scrollToTopOnClick={false}
                   onClick={() =>
                     setAboutContent((prev) => ({
                       ...prev,
@@ -518,6 +531,90 @@ export function SiteContent() {
                 >
                   <Plus size={16} className="mr-2" />
                   Add Experience Entry
+                </Button>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <CardTitle>Selected Publications</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                {aboutContent.publications.length === 0 ? (
+                  <p className="text-sm text-muted-foreground">No publications added yet.</p>
+                ) : (
+                  aboutContent.publications.map((entry, index) => (
+                    <div key={`publication-${index}`} className="rounded-lg border border-border p-4">
+                      <div className="flex items-start gap-4">
+                        <div className="flex-1 space-y-3">
+                          <div>
+                            <Label htmlFor={`publication-title-${index}`}>Title</Label>
+                            <Input
+                              id={`publication-title-${index}`}
+                              value={entry.title}
+                              onChange={(e) => {
+                                const value = e.target.value;
+                                setAboutContent((prev) => {
+                                  const nextPublications = [...prev.publications];
+                                  nextPublications[index] = { ...nextPublications[index], title: value };
+                                  return { ...prev, publications: nextPublications };
+                                });
+                              }}
+                            />
+                          </div>
+                          <div>
+                            <Label htmlFor={`publication-subtitle-${index}`}>Details</Label>
+                            <Input
+                              id={`publication-subtitle-${index}`}
+                              value={entry.subtitle}
+                              onChange={(e) => {
+                                const value = e.target.value;
+                                setAboutContent((prev) => {
+                                  const nextPublications = [...prev.publications];
+                                  nextPublications[index] = { ...nextPublications[index], subtitle: value };
+                                  return { ...prev, publications: nextPublications };
+                                });
+                              }}
+                            />
+                          </div>
+                        </div>
+                        <Button
+                          type="button"
+                          variant="ghost"
+                          size="icon"
+                          className="mt-2"
+                          onClick={() =>
+                            setAboutContent((prev) => ({
+                              ...prev,
+                              publications: prev.publications.filter((_, i) => i !== index),
+                            }))
+                          }
+                        >
+                          <Trash2 size={16} />
+                        </Button>
+                      </div>
+                    </div>
+                  ))
+                )}
+                <Button
+                  type="button"
+                  variant="outline"
+                  scrollToTopOnClick={false}
+                  onClick={() =>
+                    setAboutContent((prev) => ({
+                      ...prev,
+                      publications: [
+                        ...prev.publications,
+                        {
+                          title: 'New Publication',
+                          subtitle: '',
+                        },
+                      ],
+                    }))
+                  }
+                >
+                  <Plus size={16} className="mr-2" />
+                  Add Publication
                 </Button>
               </CardContent>
             </Card>
@@ -682,7 +779,7 @@ export function SiteContent() {
               </CardHeader>
               <CardContent className="space-y-4">
                 {contactContent.socials.map((social, index) => (
-                  <div key={social.type + index} className="rounded-lg border border-border p-4 space-y-3">
+                  <div key={`social-${index}`} className="rounded-lg border border-border p-4 space-y-3">
                     <div className="flex items-start gap-4">
                       <div className="flex-1 space-y-3">
                         <div>
@@ -770,6 +867,7 @@ export function SiteContent() {
                 <Button
                   type="button"
                   variant="outline"
+                  scrollToTopOnClick={false}
                   onClick={() =>
                     setContactContent((prev) => ({
                       ...prev,

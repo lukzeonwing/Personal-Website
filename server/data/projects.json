@@ -21,12 +21,12 @@
       "Raspberry Pi"
     ],
     "challenges": "Merging abstract emergence theory into a tangible interactive form.",
-    "solution": "Triangular motion modules with servo and sensor-based responsiveness controlled.",
-    "outcome": "Visualized emergent behaviors; showcased the aesthetic and conceptual synergy of motion and system interaction.",
+    "solution": "Triangular motion modules with servo and sensor-based responsiveness controlled. Visualized emergent behaviors; showcased the aesthetic and conceptual synergy of motion and system interaction.",
+    "outcome": "1",
     "contentBlocks": [],
     "link": "https://youtu.be/t3h_mF45gQY",
     "featured": true,
-    "views": 32,
+    "views": 38,
     "id": "matrix-emergence-necessity",
     "viewHistory": [
       {
@@ -188,7 +188,67 @@
         "timestamp": 1761656885817,
         "ip": "::ffff:221.127.120.38",
         "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36 Edg/141.0.0.0"
+      },
+      {
+        "timestamp": 1761658976064,
+        "ip": "::ffff:221.127.120.38",
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36"
+      },
+      {
+        "timestamp": 1761662634571,
+        "ip": "::ffff:221.127.120.38",
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36"
+      },
+      {
+        "timestamp": 1761662706542,
+        "ip": "::ffff:221.127.120.38",
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36"
+      },
+      {
+        "timestamp": 1761714795237,
+        "ip": "::ffff:221.127.120.38",
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+      },
+      {
+        "timestamp": 1761716296400,
+        "ip": "::ffff:221.127.120.38",
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+      },
+      {
+        "timestamp": 1761716324333,
+        "ip": "::ffff:221.127.120.38",
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
       }
     ]
+  },
+  {
+    "title": "AIxchange",
+    "description": "A speculative design concept envisioning a future AI-mediated communication system. The system integrates wearable devices and LLMs to optimize tone, empathy, and clarity during conversations, questioning authenticity in AI-filtered communication.",
+    "category": "wearable-\bdevice",
+    "year": "2024",
+    "coverImage": "/uploads/projects/aixchange/upload-1761754844942-6utv5s-dsc02630.jpg",
+    "images": [
+      "/uploads/projects/aixchange/upload-1761718320289-l0r5xh-project-3---brief.png",
+      "/uploads/projects/aixchange/upload-1761718325492-qjv29r-project-3---story.png",
+      "/uploads/projects/aixchange/upload-1761718340918-j9zlcj-project-3---design.png",
+      "/uploads/projects/aixchange/upload-1761718351820-boudft-project-3---ai-communication.png",
+      "/uploads/projects/aixchange/upload-1761718361810-iaujq5-project-3---service-blueprint.png",
+      "/uploads/projects/aixchange/upload-1761718367965-tahirv-project-3---present.png"
+    ],
+    "role": "Storyboarding, Interaction Prototyping",
+    "tools": [
+      "Figma",
+      "Arduino",
+      "ChatGPT"
+    ],
+    "challenges": "Miscommunication and emotional conflict in human interactions.",
+    "solution": "Designed an AI wearable system to transcribe and reframe speech empathetically in real time.",
+    "outcome": "Provoked critical discussion about emotional authenticity, privacy, and empathy in AI-mediated futures.",
+    "contentBlocks": [],
+    "link": "https://youtu.be/LtnCfn_1cMU",
+    "featured": false,
+    "views": 0,
+    "id": "aixchange",
+    "viewHistory": []
   }
 ]

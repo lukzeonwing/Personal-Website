@@ -79,7 +79,7 @@ export function Home() {
               <h1 className="text-5xl md:text-6xl lg:text-7xl font-semibold text-primary">JARVIS</h1>
             </div>
             <p className="text-xl md:text-2xl text-muted-foreground mb-8">
-              A Industrial Designer, HCI Researcher, interested in product system design, UI/UX, design research, and 3D printing solutions.
+              A Industrial Designer, UX Researcher, interested in product system design, UI/UX, design research, and 3D printing solutions.
             </p>
             <div className="flex flex-wrap gap-4">
               <Link to="/projects">
@@ -88,11 +88,13 @@ export function Home() {
                   <ArrowRight className="ml-2" size={20} />
                 </Button>
               </Link>
-              <Link to="/contact">
+
+              <Link to="/about">
                 <Button size="lg" variant="outline">
-                  Get in Touch
+                  About Me
                 </Button>
               </Link>
+
             </div>
           </div>
         </div>

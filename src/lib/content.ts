@@ -17,6 +17,7 @@ export interface AboutContent {
   skills: ListGroup[];
   tools: ListGroup[];
   workExperience: EducationEntry[];
+  publications: EducationEntry[];
   education: EducationEntry[];
 }
 

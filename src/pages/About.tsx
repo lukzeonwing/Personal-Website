@@ -84,7 +84,7 @@ export function About() {
 
         <div className="mt-20 space-y-12">
           <div>
-            <h2 className="text-3xl mb-6">Education & Certifications</h2>
+            <h2 className="text-3xl mb-6">Education</h2>
             <div className="space-y-4">
               {content.education.map((entry) => (
                 <div key={entry.title} className="border-l-2 border-primary pl-6 py-2">
@@ -94,19 +94,34 @@ export function About() {
               ))}
             </div>
           </div>
-          {content.workExperience.length > 0 && (
+
+          <div>
+            <h2 className="text-3xl mb-6">Work Experience</h2>
+            <div className="space-y-4">
+              {content.workExperience.map((entry) => (
+                <div key={entry.title} className="border-l-2 border-primary pl-6 py-2">
+                  <h3 className="mb-1">{entry.title}</h3>
+                  <p className="text-muted-foreground">{entry.subtitle}</p>
+                </div>
+              ))}
+          </div>
+
+          </div>
+          {content.publications.length > 0 && (
             <div>
-              <h2 className="text-3xl mb-6">Work Experience</h2>
+              <h3 className="text-3xl mb-6">Publications</h3>
               <div className="space-y-4">
-                {content.workExperience.map((entry) => (
-                  <div key={entry.title} className="border-l-2 border-primary pl-6 py-2">
-                    <h3 className="mb-1">{entry.title}</h3>
+                {content.publications.map((entry) => (
+                  <div key={entry.title} className="border-l-2 border-muted pl-6 py-2">
+                    <h4 className="font-medium">{entry.title}</h4>
                     <p className="text-muted-foreground">{entry.subtitle}</p>
                   </div>
                 ))}
               </div>
             </div>
           )}
+            
+        
         </div>
       </div>
     </div>

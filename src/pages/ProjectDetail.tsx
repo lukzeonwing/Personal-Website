@@ -155,10 +155,6 @@ export function ProjectDetail() {
             <p className="text-lg leading-relaxed">{project.solution}</p>
           </div>
           
-          <div>
-            <h2 className="text-3xl mb-4">Outcome</h2>
-            <p className="text-lg leading-relaxed">{project.outcome}</p>
-          </div>
         </div>
         
         {/* Content Blocks */}

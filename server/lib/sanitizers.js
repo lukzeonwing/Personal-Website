@@ -94,6 +94,7 @@ function sanitizeAboutContent(payload) {
     skills: sanitizeListGroups(payload.skills, fallback.skills),
     tools: sanitizeListGroups(payload.tools, fallback.tools),
     workExperience: sanitizeEducation(payload.workExperience, fallback.workExperience),
+    publications: sanitizeEducation(payload.publications, fallback.publications),
     education: sanitizeEducation(payload.education, fallback.education),
   };
 }
