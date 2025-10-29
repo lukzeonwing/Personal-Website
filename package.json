@@ -2,6 +2,7 @@
       "name": "Jarvis Design",
       "version": "0.1.0",
       "private": true,
+      "type": "module",
       "dependencies": {
             "@radix-ui/react-accordion": "^1.2.3",
             "@radix-ui/react-alert-dialog": "^1.1.6",
@@ -36,9 +37,12 @@
             "embla-carousel-autoplay": "^8.6.0",
             "embla-carousel-react": "^8.6.0",
             "express": "^4.21.2",
+            "express-rate-limit": "^8.2.0",
+            "helmet": "^8.1.0",
             "input-otp": "^1.4.2",
             "jsonwebtoken": "^9.0.2",
             "lucide-react": "^0.487.0",
+            "morgan": "^1.10.1",
             "next-themes": "^0.4.6",
             "react": "^18.3.1",
             "react-day-picker": "^8.10.1",
@@ -49,7 +53,9 @@
             "recharts": "^2.15.2",
             "sonner": "^2.0.3",
             "tailwind-merge": "*",
-            "vaul": "^1.1.2"
+            "vaul": "^1.1.2",
+            "winston": "^3.18.3",
+            "zod": "^4.1.12"
       },
       "devDependencies": {
             "@types/jest": "^30.0.0",

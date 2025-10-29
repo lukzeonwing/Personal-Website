@@ -12,6 +12,7 @@ const {
 const { clone } = require('./lib/utils');
 const { normalizeProjectMedia } = require('./lib/projects');
 const { hashPassword } = require('./lib/auth');
+const logger = require('./lib/logger');
 
 const defaultMeta = {
   categories: defaultData.categories,
@@ -59,7 +60,7 @@ async function loadJson(filePath, fallback) {
     const raw = await fs.readFile(filePath, 'utf8');
     return JSON.parse(raw);
   } catch (error) {
-    console.error(`Failed to load ${path.basename(filePath)}, using defaults:`, error.message);
+    logger.warn(`Failed to load ${path.basename(filePath)}, using defaults`, { error: error.message });
     return clone(fallback);
   }
 }

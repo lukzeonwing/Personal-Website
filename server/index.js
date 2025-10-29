@@ -1,7 +1,11 @@
 const express = require('express');
-const cors = require('cors');
+const morgan = require('morgan');
+const helmet = require('helmet');
 const { PORT, BODY_SIZE_LIMIT, UPLOADS_DIR } = require('./config');
 const { initializeStore } = require('./store');
+const { configureCors } = require('./middleware/cors');
+const { notFoundHandler, errorHandler } = require('./middleware/errorHandlers');
+const logger = require('./lib/logger');
 
 const createHealthRouter = require('./routes/health');
 const createUploadsRouter = require('./routes/uploads');
@@ -19,7 +23,17 @@ async function bootstrap() {
 
   const app = express();
 
-  app.use(cors());
+  // Security headers
+  app.use(helmet({
+    crossOriginResourcePolicy: { policy: "cross-origin" }, // Allow images to be loaded cross-origin
+    contentSecurityPolicy: false, // Disable CSP for now (configure based on your needs)
+  }));
+
+  // HTTP request logging
+  app.use(morgan('combined', { stream: logger.stream }));
+
+  // Middleware
+  app.use(configureCors());
   app.use(express.json({ limit: BODY_SIZE_LIMIT }));
   app.use(express.urlencoded({ extended: true, limit: BODY_SIZE_LIMIT }));
   app.use('/uploads', express.static(UPLOADS_DIR));
@@ -35,12 +49,16 @@ async function bootstrap() {
   app.use('/api/messages', createMessagesRouter());
   app.use('/api/banned-ips', createBannedIpsRouter());
 
+  // Error handlers (must be last)
+  app.use(notFoundHandler);
+  app.use(errorHandler);
+
   app.listen(PORT, () => {
-    console.log(`API server listening on port ${PORT}`);
+    logger.info(`API server listening on port ${PORT}`);
   });
 }
 
 bootstrap().catch((error) => {
-  console.error('Failed to start server', error);
+  logger.error('Failed to start server', { error: error.message, stack: error.stack });
   process.exit(1);
 });

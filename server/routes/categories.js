@@ -1,6 +1,7 @@
 const express = require('express');
 const { requireAuth } = require('../lib/auth');
 const { getData, saveData } = require('../store');
+const { validateRequest, categoryCreateSchema, categoryUpdateSchema } = require('../middleware/validation');
 
 function createCategoriesRouter() {
   const router = express.Router();
@@ -10,11 +11,8 @@ function createCategoriesRouter() {
     res.json(data.categories);
   });
 
-  router.post('/', requireAuth, async (req, res) => {
+  router.post('/', requireAuth, validateRequest(categoryCreateSchema), async (req, res) => {
     const { label } = req.body || {};
-    if (!label || !label.trim()) {
-      return res.status(400).json({ message: 'Category label is required' });
-    }
 
     const id = label.toLowerCase().replace(/\s+/g, '-');
     const data = getData();
@@ -29,7 +27,7 @@ function createCategoriesRouter() {
     return res.status(201).json(newCategory);
   });
 
-  router.put('/:id', requireAuth, async (req, res) => {
+  router.put('/:id', requireAuth, validateRequest(categoryUpdateSchema), async (req, res) => {
     const data = getData();
     const category = data.categories.find((cat) => cat.id === req.params.id);
     if (!category) {
@@ -37,9 +35,6 @@ function createCategoriesRouter() {
     }
 
     const { label } = req.body || {};
-    if (!label || !label.trim()) {
-      return res.status(400).json({ message: 'Category label is required' });
-    }
 
     category.label = label.trim();
     await saveData();

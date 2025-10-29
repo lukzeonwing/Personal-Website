@@ -1,0 +1,6 @@
+{
+  "name": "jarvis-server",
+  "version": "1.0.0",
+  "type": "commonjs",
+  "description": "Backend server for Jarvis website"
+}

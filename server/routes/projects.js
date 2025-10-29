@@ -2,7 +2,10 @@ const express = require('express');
 const { requireAuth } = require('../lib/auth');
 const { getData, saveData } = require('../store');
 const { normalizeProjectMedia, sanitizeProject } = require('../lib/projects');
-const { generateId, sanitizeIdentifier, getClientIp } = require('../lib/utils');
+const { generateId, sanitizeIdentifier, getClientIp, addViewRecord } = require('../lib/utils');
+const { viewLimiter } = require('../middleware/rateLimiter');
+const { validateRequest, projectCreateSchema, projectUpdateSchema } = require('../middleware/validation');
+const { checkIpBan } = require('../middleware/ipBan');
 
 function createProjectsRouter() {
   const router = express.Router();
@@ -22,11 +25,8 @@ function createProjectsRouter() {
     return res.json(sanitizeProject(project));
   });
 
-  router.post('/', requireAuth, async (req, res) => {
+  router.post('/', requireAuth, validateRequest(projectCreateSchema), async (req, res) => {
     const payload = req.body || {};
-    if (!payload.title || !payload.description || !payload.category) {
-      return res.status(400).json({ message: 'Title, description and category are required' });
-    }
 
     const providedId = typeof payload.id === 'string' ? sanitizeIdentifier(payload.id) : '';
     const projectId = providedId || generateId('proj_');
@@ -47,7 +47,7 @@ function createProjectsRouter() {
     return res.status(201).json(sanitizeProject(newProject));
   });
 
-  router.put('/:id', requireAuth, async (req, res) => {
+  router.put('/:id', requireAuth, validateRequest(projectUpdateSchema), async (req, res) => {
     const data = getData();
     const index = data.projects.findIndex((p) => p.id === req.params.id);
     if (index === -1) {
@@ -95,7 +95,7 @@ function createProjectsRouter() {
     return res.json(sanitizeProject(project));
   });
 
-  router.post('/:id/view', async (req, res) => {
+  router.post('/:id/view', viewLimiter, checkIpBan, async (req, res) => {
     const data = getData();
     const project = data.projects.find((p) => p.id === req.params.id);
     if (!project) {
@@ -103,10 +103,6 @@ function createProjectsRouter() {
     }
 
     const ip = getClientIp(req);
-    if (data.bannedIps.some((entry) => entry.ip === ip)) {
-      return res.status(403).json({ message: 'View blocked: IP address is banned' });
-    }
-
     const viewRecord = {
       timestamp: Date.now(),
       ip,
@@ -114,7 +110,7 @@ function createProjectsRouter() {
     };
 
     project.views = (project.views || 0) + 1;
-    project.viewHistory = [...(project.viewHistory || []), viewRecord];
+    project.viewHistory = addViewRecord(project.viewHistory, viewRecord);
 
     await saveData();
     return res.json({ views: project.views });

@@ -1,6 +1,7 @@
 const express = require('express');
 const { requireAuth } = require('../lib/auth');
 const { getData, saveData } = require('../store');
+const { validateRequest, bannedIpCreateSchema } = require('../middleware/validation');
 
 function createBannedIpsRouter() {
   const router = express.Router();
@@ -10,11 +11,8 @@ function createBannedIpsRouter() {
     res.json(data.bannedIps);
   });
 
-  router.post('/', requireAuth, async (req, res) => {
+  router.post('/', requireAuth, validateRequest(bannedIpCreateSchema), async (req, res) => {
     const { ip, reason } = req.body || {};
-    if (!ip) {
-      return res.status(400).json({ message: 'IP address is required' });
-    }
 
     const data = getData();
     if (data.bannedIps.some((entry) => entry.ip === ip)) {

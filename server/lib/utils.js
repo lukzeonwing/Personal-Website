@@ -1,3 +1,6 @@
+// Maximum number of view history records to keep per item
+const MAX_VIEW_HISTORY = 1000;
+
 function clone(value) {
   return JSON.parse(JSON.stringify(value));
 }
@@ -21,9 +24,20 @@ function sanitizeIdentifier(value) {
     .replace(/^-+|-+$/g, '');
 }
 
+/**
+ * Add a view record and limit history size to prevent memory leaks
+ */
+function addViewRecord(viewHistory, newRecord) {
+  const updated = [...(viewHistory || []), newRecord];
+  // Keep only the most recent MAX_VIEW_HISTORY records
+  return updated.slice(-MAX_VIEW_HISTORY);
+}
+
 module.exports = {
   clone,
   generateId,
   getClientIp,
   sanitizeIdentifier,
+  addViewRecord,
+  MAX_VIEW_HISTORY,
 };

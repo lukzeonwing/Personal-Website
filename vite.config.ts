@@ -53,11 +53,73 @@
     build: {
       target: 'esnext',
       outDir: 'build',
+      rollupOptions: {
+        output: {
+          manualChunks: {
+            // Split React and React DOM into their own chunk
+            'react-vendor': ['react', 'react-dom', 'react-router-dom'],
+            // Split Radix UI components into their own chunk
+            'radix-ui': [
+              '@radix-ui/react-accordion',
+              '@radix-ui/react-alert-dialog',
+              '@radix-ui/react-aspect-ratio',
+              '@radix-ui/react-avatar',
+              '@radix-ui/react-checkbox',
+              '@radix-ui/react-collapsible',
+              '@radix-ui/react-context-menu',
+              '@radix-ui/react-dialog',
+              '@radix-ui/react-dropdown-menu',
+              '@radix-ui/react-hover-card',
+              '@radix-ui/react-label',
+              '@radix-ui/react-menubar',
+              '@radix-ui/react-navigation-menu',
+              '@radix-ui/react-popover',
+              '@radix-ui/react-progress',
+              '@radix-ui/react-radio-group',
+              '@radix-ui/react-scroll-area',
+              '@radix-ui/react-select',
+              '@radix-ui/react-separator',
+              '@radix-ui/react-slider',
+              '@radix-ui/react-slot',
+              '@radix-ui/react-switch',
+              '@radix-ui/react-tabs',
+              '@radix-ui/react-toggle',
+              '@radix-ui/react-toggle-group',
+              '@radix-ui/react-tooltip',
+            ],
+            // Split other UI libraries
+            'ui-vendor': [
+              'lucide-react',
+              'embla-carousel-react',
+              'embla-carousel-autoplay',
+              'vaul',
+              'sonner',
+              'cmdk',
+            ],
+            // Split form and data visualization libraries
+            'utils-vendor': [
+              'react-hook-form',
+              'react-day-picker',
+              'recharts',
+              'zod',
+              'class-variance-authority',
+              'clsx',
+              'tailwind-merge',
+              'input-otp',
+              'next-themes',
+              'react-resizable-panels',
+            ],
+          },
+        },
+      },
+      chunkSizeWarningLimit: 1000, // Increase warning limit to 1000 kB
     },
     server: {
       host: true,
-      port: 3000,
+      port: 5173, // Development port (default Vite port)
       open: true,
-      allowedHosts: ['jarvis-pi.dynv6.net'],
+    },
+    preview: {
+      port: 3000, // Production preview port
     },
   });

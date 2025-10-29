@@ -9,11 +9,13 @@ const {
   IMAGE_FILE_PATTERN,
 } = require('../lib/uploads');
 const { WORKSHOP_GALLERY_DIR } = require('../config');
+const { uploadLimiter } = require('../middleware/rateLimiter');
+const logger = require('../lib/logger');
 
 function createWorkshopRouter() {
   const router = express.Router();
 
-  router.post('/gallery', requireAuth, async (req, res) => {
+  router.post('/gallery', uploadLimiter, requireAuth, async (req, res) => {
     const files = Array.isArray(req.body?.files) ? req.body.files : [];
 
     if (files.length === 0) {
@@ -23,7 +25,7 @@ function createWorkshopRouter() {
     try {
       await fs.mkdir(WORKSHOP_GALLERY_DIR, { recursive: true });
     } catch (error) {
-      console.error('Failed to prepare workshop gallery directory:', error);
+      logger.error('Failed to prepare workshop gallery directory', { error: error.message });
       return res.status(500).json({ message: 'Failed to prepare gallery directory' });
     }
 
@@ -54,7 +56,7 @@ function createWorkshopRouter() {
       try {
         buffer = Buffer.from(base64String, 'base64');
       } catch (error) {
-        console.error('Failed to decode base64 image:', error);
+        logger.error('Failed to decode base64 image', { error: error.message });
         return res.status(400).json({ message: 'Failed to decode image data' });
       }
 
@@ -69,7 +71,7 @@ function createWorkshopRouter() {
       try {
         await fs.writeFile(targetPath, buffer);
       } catch (error) {
-        console.error('Failed to store workshop gallery image:', error);
+        logger.error('Failed to store workshop gallery image', { error: error.message });
         return res.status(500).json({ message: 'Failed to store one of the gallery images' });
       }
 
@@ -90,7 +92,7 @@ function createWorkshopRouter() {
 
       return res.json({ files });
     } catch (error) {
-      console.error('Failed to load workshop gallery images:', error);
+      logger.error('Failed to load workshop gallery images', { error: error.message });
       return res.status(500).json({ message: 'Failed to load workshop gallery images' });
     }
   });

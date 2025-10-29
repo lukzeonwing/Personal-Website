@@ -2,11 +2,14 @@ const express = require('express');
 const { ADMIN_USERNAME, ADMIN_PASSWORD } = require('../config');
 const { requireAuth, hashPassword, verifyPassword, createAdminToken } = require('../lib/auth');
 const { getData, saveData } = require('../store');
+const { authLimiter, passwordChangeLimiter } = require('../middleware/rateLimiter');
+const { validateRequest, loginSchema, passwordChangeSchema } = require('../middleware/validation');
+const { asyncHandler } = require('../middleware/asyncHandler');
 
 function createAuthRouter() {
   const router = express.Router();
 
-  router.post('/login', async (req, res) => {
+  router.post('/login', authLimiter, validateRequest(loginSchema), asyncHandler(async (req, res) => {
     const { username, password } = req.body || {};
     if (!username || !password) {
       return res.status(400).json({ message: 'Username and password are required' });
@@ -32,13 +35,13 @@ function createAuthRouter() {
 
     const token = createAdminToken();
     return res.json({ token });
-  });
+  }));
 
   router.get('/me', requireAuth, (_req, res) => {
     return res.json({ role: 'admin' });
   });
 
-  router.put('/password', requireAuth, async (req, res) => {
+  router.put('/password', passwordChangeLimiter, requireAuth, validateRequest(passwordChangeSchema), asyncHandler(async (req, res) => {
     const { currentPassword, newPassword } = req.body || {};
     if (!currentPassword || !newPassword) {
       return res.status(400).json({ message: 'Current and new password are required' });
@@ -64,7 +67,7 @@ function createAuthRouter() {
     await saveData();
 
     return res.json({ message: 'Password updated successfully' });
-  });
+  }));
 
   return router;
 }

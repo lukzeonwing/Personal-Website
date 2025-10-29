@@ -8,6 +8,12 @@ build/
 # Runtime data
 server/data/
 uploads/
+server/logs/
+
+# Environment variables
+.env
+.env.local
+.env.*.local
 
 # OS files
 .DS_Store

@@ -9,16 +9,15 @@ const {
   buildUploadsRelativePath,
 } = require('../lib/uploads');
 const { UPLOADS_DIR } = require('../config');
+const { uploadLimiter } = require('../middleware/rateLimiter');
+const { validateRequest, uploadSchema } = require('../middleware/validation');
+const logger = require('../lib/logger');
 
 function createUploadsRouter() {
   const router = express.Router();
 
-  router.post('/', requireAuth, async (req, res) => {
+  router.post('/', uploadLimiter, requireAuth, validateRequest(uploadSchema), async (req, res) => {
     const { data, filename, entityType, entityId } = req.body || {};
-
-    if (typeof data !== 'string' || !data.startsWith('data:')) {
-      return res.status(400).json({ message: 'Invalid image payload' });
-    }
 
     const normalizedType = typeof entityType === 'string' ? entityType.toLowerCase() : '';
     const resolvedType =
@@ -61,7 +60,7 @@ function createUploadsRouter() {
     try {
       await fs.mkdir(entityDir, { recursive: true });
     } catch (error) {
-      console.error('Failed to prepare upload directory:', error);
+      logger.error('Failed to prepare upload directory', { error: error.message, entityType: resolvedType, entityId: safeEntityId });
       return res.status(500).json({ message: 'Failed to prepare upload directory' });
     }
 
@@ -70,7 +69,7 @@ function createUploadsRouter() {
     try {
       await fs.writeFile(filePath, buffer);
     } catch (error) {
-      console.error('Failed to save uploaded image:', error);
+      logger.error('Failed to save uploaded image', { error: error.message, filePath });
       return res.status(500).json({ message: 'Failed to store image' });
     }
 

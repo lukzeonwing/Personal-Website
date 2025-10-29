@@ -2,6 +2,9 @@ const express = require('express');
 const { requireAuth } = require('../lib/auth');
 const { getData, saveData } = require('../store');
 const { generateId } = require('../lib/utils');
+const { messageLimiter } = require('../middleware/rateLimiter');
+const { validateRequest, messageCreateSchema } = require('../middleware/validation');
+const { checkIpBan } = require('../middleware/ipBan');
 
 function createMessagesRouter() {
   const router = express.Router();
@@ -11,11 +14,8 @@ function createMessagesRouter() {
     res.json(data.messages);
   });
 
-  router.post('/', async (req, res) => {
+  router.post('/', messageLimiter, checkIpBan, validateRequest(messageCreateSchema), async (req, res) => {
     const payload = req.body || {};
-    if (!payload.name || !payload.email || !payload.subject || !payload.message) {
-      return res.status(400).json({ message: 'All message fields are required' });
-    }
 
     const newMessage = {
       ...payload,

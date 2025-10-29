@@ -2,6 +2,7 @@ const express = require('express');
 const { requireAuth } = require('../lib/auth');
 const { getData, saveData } = require('../store');
 const { sanitizeAboutContent, sanitizeContactContent } = require('../lib/sanitizers');
+const logger = require('../lib/logger');
 
 function createContentRouter() {
   const router = express.Router();
@@ -20,7 +21,7 @@ function createContentRouter() {
       await saveData();
       return res.json(data.about);
     } catch (error) {
-      console.error('Failed to update about content:', error);
+      logger.error('Failed to update about content', { error: error.message });
       return res.status(400).json({ message: 'Invalid about content payload' });
     }
   });
@@ -39,7 +40,7 @@ function createContentRouter() {
       await saveData();
       return res.json(data.contact);
     } catch (error) {
-      console.error('Failed to update contact content:', error);
+      logger.error('Failed to update contact content', { error: error.message });
       return res.status(400).json({ message: 'Invalid contact content payload' });
     }
   });

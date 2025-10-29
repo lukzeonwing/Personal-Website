@@ -2,6 +2,9 @@ const express = require('express');
 const { requireAuth } = require('../lib/auth');
 const { getData, saveData } = require('../store');
 const { generateId, sanitizeIdentifier } = require('../lib/utils');
+const { viewLimiter } = require('../middleware/rateLimiter');
+const { validateRequest, storyCreateSchema, storyUpdateSchema } = require('../middleware/validation');
+const { checkIpBan } = require('../middleware/ipBan');
 
 function createStoriesRouter() {
   const router = express.Router();
@@ -20,11 +23,8 @@ function createStoriesRouter() {
     return res.json(story);
   });
 
-  router.post('/', requireAuth, async (req, res) => {
+  router.post('/', requireAuth, validateRequest(storyCreateSchema), async (req, res) => {
     const payload = req.body || {};
-    if (!payload.title || !payload.description) {
-      return res.status(400).json({ message: 'Title and description are required' });
-    }
 
     const providedId = typeof payload.id === 'string' ? sanitizeIdentifier(payload.id) : '';
     const storyId = providedId || generateId('story_');
@@ -44,7 +44,7 @@ function createStoriesRouter() {
     return res.status(201).json(newStory);
   });
 
-  router.put('/:id', requireAuth, async (req, res) => {
+  router.put('/:id', requireAuth, validateRequest(storyUpdateSchema), async (req, res) => {
     const data = getData();
     const index = data.stories.findIndex((s) => s.id === req.params.id);
     if (index === -1) {
@@ -82,7 +82,7 @@ function createStoriesRouter() {
     return res.status(410).json({ message: 'Feature stories endpoint is no longer supported' });
   });
 
-  router.post('/:id/view', async (req, res) => {
+  router.post('/:id/view', viewLimiter, checkIpBan, async (req, res) => {
     const data = getData();
     const story = data.stories.find((s) => s.id === req.params.id);
     if (!story) {
