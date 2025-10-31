@@ -7,7 +7,7 @@ build/
 
 # Runtime data
 server/data/
-uploads/
+server/uploads/
 server/logs/
 
 # Environment variables
