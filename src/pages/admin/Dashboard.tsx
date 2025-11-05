@@ -8,7 +8,6 @@ import { Button } from '../../components/ui/button';
 import { Input } from '../../components/ui/input';
 import { Label } from '../../components/ui/label';
 import { Checkbox } from '../../components/ui/checkbox';
-import { ScrollArea } from '../../components/ui/scroll-area';
 import {
   Dialog,
   DialogContent,
@@ -582,14 +581,14 @@ export function Dashboard() {
                   setIsDeletingMedia(false);
                 }
               }}>
-                <DialogContent className="sm:max-w-[700px]" style={{ maxWidth: '700px' }}>
-                  <DialogHeader>
+                <DialogContent className="sm:max-w-[700px] w-[95vw] max-h-[85vh] flex flex-col overflow-hidden">
+                  <DialogHeader className="flex-shrink-0">
                     <DialogTitle>Clean Unused Media Files</DialogTitle>
                     <DialogDescription>
                       Review and delete media files that are not referenced in any projects or stories.
                     </DialogDescription>
                   </DialogHeader>
-                  <div className="space-y-4">
+                  <div className="space-y-4 flex-1 overflow-hidden flex flex-col">
                     {isLoadingUnusedMedia ? (
                       <div className="text-center py-8 text-muted-foreground">
                         Scanning for unused files...
@@ -615,8 +614,8 @@ export function Dashboard() {
                             {selectedFiles.size} selected
                           </span>
                         </div>
-                        <ScrollArea className="h-[400px] pr-4">
-                          <div className="space-y-2">
+                        <div className="flex-1 overflow-y-auto pr-2 min-h-0" style={{ maxHeight: 'calc(85vh - 300px)' }}>
+                          <div className="space-y-2 pb-2">
                             {unusedMediaFiles.map((file) => (
                               <div
                                 key={file.path}
@@ -643,11 +642,11 @@ export function Dashboard() {
                               </div>
                             ))}
                           </div>
-                        </ScrollArea>
+                        </div>
                       </>
                     )}
                   </div>
-                  <DialogFooter className="flex gap-2 justify-end">
+                  <DialogFooter className="flex gap-2 justify-end flex-shrink-0">
                     <Button
                       type="button"
                       variant="outline"
