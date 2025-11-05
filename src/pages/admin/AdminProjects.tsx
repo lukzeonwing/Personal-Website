@@ -54,7 +54,13 @@ export function AdminProjects() {
         getProjects(),
         getCategories(),
       ]);
-      setProjects(projectList);
+      // Sort projects by year (newest first)
+      const sortedProjects = [...projectList].sort((a, b) => {
+        const yearA = parseInt(a.year) || 0;
+        const yearB = parseInt(b.year) || 0;
+        return yearB - yearA;
+      });
+      setProjects(sortedProjects);
       setCategories(categoryList);
     } catch (error) {
       console.error(error);

@@ -42,9 +42,15 @@ export function Projects() {
     };
   }, []);
   
-  const filteredProjects = filter === 'all' 
+  const filteredProjects = (filter === 'all' 
     ? projects 
-    : projects.filter(p => p.category === filter);
+    : projects.filter(p => p.category === filter))
+    .sort((a, b) => {
+      // Sort by year (newest first)
+      const yearA = parseInt(a.year) || 0;
+      const yearB = parseInt(b.year) || 0;
+      return yearB - yearA;
+    });
   
   return (
     <div className="min-h-screen py-20">

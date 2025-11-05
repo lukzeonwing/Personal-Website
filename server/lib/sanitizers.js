@@ -15,7 +15,8 @@ function sanitizeStringArray(values, fallback = []) {
   const cleaned = values
     .map((value) => (typeof value === 'string' ? value.trim() : ''))
     .filter((value) => value.length > 0);
-  return cleaned.length > 0 ? cleaned : fallback;
+  // Allow empty arrays - user may intentionally want no entries
+  return cleaned;
 }
 
 function sanitizeListGroups(groups, fallback = []) {
@@ -36,7 +37,8 @@ function sanitizeListGroups(groups, fallback = []) {
     })
     .filter(Boolean);
 
-  return cleaned.length > 0 ? cleaned : fallback;
+  // Allow empty arrays - user may intentionally want no entries
+  return cleaned;
 }
 
 function sanitizeEducation(entries, fallback = []) {
@@ -57,7 +59,8 @@ function sanitizeEducation(entries, fallback = []) {
     })
     .filter(Boolean);
 
-  return cleaned.length > 0 ? cleaned : fallback;
+  // Allow empty arrays - user may intentionally want no entries
+  return cleaned;
 }
 
 function sanitizeSocialLinks(links, fallback = []) {
@@ -82,7 +85,8 @@ function sanitizeSocialLinks(links, fallback = []) {
     })
     .filter(Boolean);
 
-  return cleaned.length > 0 ? cleaned : fallback;
+  // Allow empty arrays - user may intentionally want no entries
+  return cleaned;
 }
 
 function sanitizeAboutContent(payload) {
