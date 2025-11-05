@@ -12,7 +12,6 @@ import { Switch } from './ui/switch';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 import { FileUpload } from './FileUpload';
 import { X, GripVertical, Image as ImageIcon, Type, Layers } from 'lucide-react';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from './ui/tabs';
 import { toast } from 'sonner';
 import { resolveMediaUrl } from '../lib/api';
 
@@ -105,28 +104,6 @@ export function ProjectForm({ project, onSubmit }: ProjectFormProps) {
       toast.error('Failed to save project');
     } finally {
       setIsSubmitting(false);
-    }
-  };
-  
-  const handleFileSelect = (
-    event: React.ChangeEvent<HTMLInputElement>,
-    callback: (dataUrl: string) => void
-  ) => {
-    const file = event.target.files?.[0];
-    if (file && file.type.startsWith('image/')) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        const dataUrl = reader.result as string;
-        callback(dataUrl);
-      };
-      reader.readAsDataURL(file);
-    }
-  };
-  
-  const addImage = () => {
-    if (currentImage.trim()) {
-      setFormData({ ...formData, images: [...formData.images, currentImage.trim()] });
-      setCurrentImage('');
     }
   };
   
