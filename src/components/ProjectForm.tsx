@@ -550,6 +550,7 @@ export function ProjectForm({ project, onSubmit }: ProjectFormProps) {
                                 type="button"
                                 size="sm"
                                 onClick={() => setEditingBlockId(null)}
+                                scrollToTopOnClick={false}
                               >
                                 Done
                               </Button>
@@ -580,6 +581,7 @@ export function ProjectForm({ project, onSubmit }: ProjectFormProps) {
                                 variant="outline"
                                 size="sm"
                                 onClick={() => setEditingBlockId(block.id)}
+                                scrollToTopOnClick={false}
                               >
                                 Edit
                               </Button>

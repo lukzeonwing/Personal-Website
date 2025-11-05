@@ -46,7 +46,19 @@ export function Projects() {
     ? projects 
     : projects.filter(p => p.category === filter))
     .sort((a, b) => {
-      // Sort by year (newest first)
+      // Featured projects first
+      if (a.featured !== b.featured) {
+        return a.featured ? -1 : 1;
+      }
+      
+      // If both are featured, sort by featuredAt (latest first)
+      if (a.featured && b.featured) {
+        const featuredAtA = a.featuredAt || 0;
+        const featuredAtB = b.featuredAt || 0;
+        return featuredAtB - featuredAtA;
+      }
+      
+      // For non-featured projects, sort by year (newest first)
       const yearA = parseInt(a.year) || 0;
       const yearB = parseInt(b.year) || 0;
       return yearB - yearA;

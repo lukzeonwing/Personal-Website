@@ -37,7 +37,13 @@ export function Home() {
 
         if (!isMounted) return;
 
-        const featured = getFeaturedProjects(projects);
+        const featured = getFeaturedProjects(projects)
+          .sort((a, b) => {
+            // Sort featured projects by featuredAt timestamp (latest first)
+            const featuredAtA = a.featuredAt || 0;
+            const featuredAtB = b.featuredAt || 0;
+            return featuredAtB - featuredAtA;
+          });
         const sortedStories = [...stories].sort(
           (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
         );

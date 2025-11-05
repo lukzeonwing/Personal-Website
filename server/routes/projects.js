@@ -91,6 +91,8 @@ function createProjectsRouter() {
     }
 
     project.featured = !project.featured;
+    // Set featuredAt timestamp when featuring, clear it when unfeaturing
+    project.featuredAt = project.featured ? Date.now() : undefined;
     await saveData();
     return res.json(sanitizeProject(project));
   });

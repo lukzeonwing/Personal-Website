@@ -1,6 +1,6 @@
 const fs = require('fs/promises');
 const path = require('path');
-const { UPLOADS_DIR } = require('../config');
+const { UPLOADS_DIR, WORKSHOP_GALLERY_DIR } = require('../config');
 const { getData } = require('../store');
 const logger = require('./logger');
 
@@ -46,12 +46,16 @@ function extractReferencedUrls() {
   // Extract from projects
   if (Array.isArray(data.projects)) {
     for (const project of data.projects) {
-      // Main image
+      // Main/cover image
       if (project.image) urls.add(project.image);
+      if (project.coverImage) urls.add(project.coverImage);
       
-      // Gallery images
+      // Gallery/images
       if (Array.isArray(project.gallery)) {
         project.gallery.forEach(img => urls.add(img));
+      }
+      if (Array.isArray(project.images)) {
+        project.images.forEach(img => urls.add(img));
       }
       
       // Hero image
@@ -66,6 +70,15 @@ function extractReferencedUrls() {
             if (urlMatch) urls.add(urlMatch[1]);
           });
         }
+      }
+      
+      // Content blocks images
+      if (Array.isArray(project.contentBlocks)) {
+        project.contentBlocks.forEach(block => {
+          if (block.type === 'image' && block.image) {
+            urls.add(block.image);
+          }
+        });
       }
     }
   }
@@ -144,8 +157,20 @@ async function findUnusedMedia() {
     }
     
     // Find unused files
+    const normalizedWorkshopDir = path.normalize(WORKSHOP_GALLERY_DIR);
     const unusedFiles = allFiles.filter(file => {
       const normalizedPath = path.normalize(file.path);
+      
+      // Exclude system files
+      if (file.filename === '.DS_Store' || file.filename.startsWith('.')) {
+        return false;
+      }
+      
+      // Exclude workshop gallery files (they're always considered "in use")
+      if (normalizedPath.startsWith(normalizedWorkshopDir)) {
+        return false;
+      }
+      
       return !referencedPaths.has(normalizedPath);
     });
     

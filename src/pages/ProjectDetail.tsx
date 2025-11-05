@@ -185,7 +185,7 @@ export function ProjectDetail() {
                 {block.type === 'image-text' && (
                   <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
                     {block.image && (
-                      <div className="aspect-[4/3] rounded-lg overflow-hidden bg-muted">
+                      <div className="rounded-lg overflow-hidden bg-muted">
                         <ImageWithFallback
                           src={block.image}
                           alt={block.title || 'Project image'}

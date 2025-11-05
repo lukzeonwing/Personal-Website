@@ -27,6 +27,7 @@ export interface Project {
   contentBlocks: ContentBlock[];
   link?: string;
   featured: boolean;
+  featuredAt?: number;
   views: number;
   viewHistory?: ViewRecord[];
 }
