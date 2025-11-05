@@ -7,7 +7,14 @@ function resolveApiBase(): string {
   }
 
   if (typeof window !== 'undefined') {
-    const { protocol, hostname } = window.location;
+    const { protocol, hostname, port } = window.location;
+    
+    // In development (Vite dev server on 5173/5174), use relative paths to leverage proxy
+    if (port === '5173' || port === '5174') {
+      return '/api';
+    }
+    
+    // In production or other environments, construct full URL
     const portSegment = DEFAULT_API_PORT ? `:${DEFAULT_API_PORT}` : '';
     return `${protocol}//${hostname}${portSegment}/api`.replace(/\/$/, '');
   }
@@ -143,6 +150,18 @@ export function resolveMediaUrl(path?: string | null): string | undefined {
     return trimmed;
   }
 
+  // In development (Vite proxy), use relative URLs
+  if (typeof window !== 'undefined' && (window.location.port === '5173' || window.location.port === '5174')) {
+    if (trimmed.startsWith('/uploads/')) {
+      return trimmed;
+    }
+    if (trimmed.startsWith('uploads/')) {
+      return `/${trimmed}`;
+    }
+    return trimmed;
+  }
+
+  // In production, use API_ORIGIN
   if (!API_ORIGIN) {
     return trimmed;
   }

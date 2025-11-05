@@ -17,6 +17,7 @@ const createContentRouter = require('./routes/content');
 const createStoriesRouter = require('./routes/stories');
 const createMessagesRouter = require('./routes/messages');
 const createBannedIpsRouter = require('./routes/bannedIps');
+const createMediaRouter = require('./routes/media');
 
 async function bootstrap() {
   await initializeStore();
@@ -48,6 +49,7 @@ async function bootstrap() {
   app.use('/api/stories', createStoriesRouter());
   app.use('/api/messages', createMessagesRouter());
   app.use('/api/banned-ips', createBannedIpsRouter());
+  app.use('/api/media', createMediaRouter());
 
   // Error handlers (must be last)
   app.use(notFoundHandler);

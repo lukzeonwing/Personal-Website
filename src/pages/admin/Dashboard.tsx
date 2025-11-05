@@ -7,6 +7,8 @@ import { Card, CardContent, CardHeader, CardTitle } from '../../components/ui/ca
 import { Button } from '../../components/ui/button';
 import { Input } from '../../components/ui/input';
 import { Label } from '../../components/ui/label';
+import { Checkbox } from '../../components/ui/checkbox';
+import { ScrollArea } from '../../components/ui/scroll-area';
 import {
   Dialog,
   DialogContent,
@@ -16,10 +18,11 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '../../components/ui/dialog';
-import { FolderOpen, Star, Plus, TrendingUp, Eye, Camera, ShieldCheck, Upload } from 'lucide-react';
+import { FolderOpen, Star, Plus, TrendingUp, Eye, Camera, ShieldCheck, Upload, Trash2 } from 'lucide-react';
 import { Project } from '../../types/project';
 import type { Category } from '../../lib/categories';
 import { toast } from 'sonner';
+import { getUnusedMedia, deleteUnusedMedia, formatFileSize, type UnusedMediaFile } from '../../lib/media';
 import { uploadWorkshopGalleryImages } from '../../lib/uploads';
 
 export function Dashboard() {
@@ -41,6 +44,11 @@ export function Dashboard() {
   const [isGalleryDialogOpen, setIsGalleryDialogOpen] = useState(false);
   const [galleryFiles, setGalleryFiles] = useState<File[]>([]);
   const [isUploadingGallery, setIsUploadingGallery] = useState(false);
+  const [isCleanupDialogOpen, setIsCleanupDialogOpen] = useState(false);
+  const [unusedMediaFiles, setUnusedMediaFiles] = useState<UnusedMediaFile[]>([]);
+  const [isLoadingUnusedMedia, setIsLoadingUnusedMedia] = useState(false);
+  const [isDeletingMedia, setIsDeletingMedia] = useState(false);
+  const [selectedFiles, setSelectedFiles] = useState<Set<string>>(new Set());
   
   useEffect(() => {
     let isMounted = true;
@@ -161,6 +169,83 @@ export function Dashboard() {
   const handleGalleryFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { files } = event.target;
     setGalleryFiles(files ? Array.from(files) : []);
+  };
+
+  const handleOpenCleanupDialog = async () => {
+    setIsCleanupDialogOpen(true);
+    setIsLoadingUnusedMedia(true);
+    setSelectedFiles(new Set());
+    
+    try {
+      const response = await getUnusedMedia();
+      setUnusedMediaFiles(response.files);
+      
+      if (response.files.length === 0) {
+        toast.success('No unused media files found!');
+      } else {
+        toast.info(`Found ${response.files.length} unused file(s) (${formatFileSize(response.totalSize)})`);
+      }
+    } catch (error) {
+      const message = error instanceof Error ? error.message : 'Failed to load unused media';
+      toast.error(message);
+      setIsCleanupDialogOpen(false);
+    } finally {
+      setIsLoadingUnusedMedia(false);
+    }
+  };
+
+  const handleToggleFile = (filePath: string) => {
+    setSelectedFiles(prev => {
+      const next = new Set(prev);
+      if (next.has(filePath)) {
+        next.delete(filePath);
+      } else {
+        next.add(filePath);
+      }
+      return next;
+    });
+  };
+
+  const handleSelectAll = () => {
+    if (selectedFiles.size === unusedMediaFiles.length) {
+      setSelectedFiles(new Set());
+    } else {
+      setSelectedFiles(new Set(unusedMediaFiles.map(f => f.path)));
+    }
+  };
+
+  const handleDeleteSelectedFiles = async () => {
+    if (selectedFiles.size === 0) {
+      toast.error('No files selected');
+      return;
+    }
+
+    setIsDeletingMedia(true);
+
+    try {
+      const filesToDelete = Array.from(selectedFiles);
+      const response = await deleteUnusedMedia(filesToDelete);
+      
+      toast.success(response.message);
+      
+      if (response.failed.length > 0) {
+        toast.warning(`Failed to delete ${response.failed.length} file(s)`);
+      }
+      
+      // Refresh the list
+      const updatedResponse = await getUnusedMedia();
+      setUnusedMediaFiles(updatedResponse.files);
+      setSelectedFiles(new Set());
+      
+      if (updatedResponse.files.length === 0) {
+        setIsCleanupDialogOpen(false);
+      }
+    } catch (error) {
+      const message = error instanceof Error ? error.message : 'Failed to delete files';
+      toast.error(message);
+    } finally {
+      setIsDeletingMedia(false);
+    }
   };
   
   return (
@@ -465,6 +550,121 @@ export function Dashboard() {
                       </Button>
                     </DialogFooter>
                   </form>
+                </DialogContent>
+              </Dialog>
+            </CardContent>
+          </Card>
+        </div>
+
+        <div className="mt-6">
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Trash2 size={18} />
+                Media Management
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p className="text-sm text-muted-foreground mb-4">
+                Clean up unused media files to free up server storage space.
+              </p>
+              <Button className="w-full" variant="outline" onClick={handleOpenCleanupDialog}>
+                <Trash2 className="mr-2" size={18} />
+                Clean Unused Media
+              </Button>
+
+              <Dialog open={isCleanupDialogOpen} onOpenChange={(open: boolean) => {
+                setIsCleanupDialogOpen(open);
+                if (!open) {
+                  setUnusedMediaFiles([]);
+                  setSelectedFiles(new Set());
+                  setIsLoadingUnusedMedia(false);
+                  setIsDeletingMedia(false);
+                }
+              }}>
+                <DialogContent className="sm:max-w-[700px]" style={{ maxWidth: '700px' }}>
+                  <DialogHeader>
+                    <DialogTitle>Clean Unused Media Files</DialogTitle>
+                    <DialogDescription>
+                      Review and delete media files that are not referenced in any projects or stories.
+                    </DialogDescription>
+                  </DialogHeader>
+                  <div className="space-y-4">
+                    {isLoadingUnusedMedia ? (
+                      <div className="text-center py-8 text-muted-foreground">
+                        Scanning for unused files...
+                      </div>
+                    ) : unusedMediaFiles.length === 0 ? (
+                      <div className="text-center py-8 text-muted-foreground">
+                        No unused media files found. All files are in use!
+                      </div>
+                    ) : (
+                      <>
+                        <div className="flex items-center justify-between py-2 border-b">
+                          <div className="flex items-center gap-2">
+                            <Checkbox
+                              id="select-all"
+                              checked={selectedFiles.size === unusedMediaFiles.length && unusedMediaFiles.length > 0}
+                              onCheckedChange={handleSelectAll}
+                            />
+                            <Label htmlFor="select-all" className="cursor-pointer">
+                              Select All ({unusedMediaFiles.length} files, {formatFileSize(unusedMediaFiles.reduce((sum, f) => sum + f.size, 0))})
+                            </Label>
+                          </div>
+                          <span className="text-sm text-muted-foreground">
+                            {selectedFiles.size} selected
+                          </span>
+                        </div>
+                        <ScrollArea className="h-[400px] pr-4">
+                          <div className="space-y-2">
+                            {unusedMediaFiles.map((file) => (
+                              <div
+                                key={file.path}
+                                className="flex items-center gap-3 p-3 border rounded-lg hover:bg-muted/50 transition-colors"
+                              >
+                                <Checkbox
+                                  id={`file-${file.path}`}
+                                  checked={selectedFiles.has(file.path)}
+                                  onCheckedChange={() => handleToggleFile(file.path)}
+                                />
+                                <div className="flex-1 min-w-0">
+                                  <div className="flex items-center gap-2">
+                                    <code className="text-sm font-mono truncate block">
+                                      {file.filename}
+                                    </code>
+                                  </div>
+                                  <div className="text-xs text-muted-foreground truncate">
+                                    {file.path}
+                                  </div>
+                                </div>
+                                <div className="text-sm text-muted-foreground whitespace-nowrap">
+                                  {formatFileSize(file.size)}
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        </ScrollArea>
+                      </>
+                    )}
+                  </div>
+                  <DialogFooter className="flex gap-2 justify-end">
+                    <Button
+                      type="button"
+                      variant="outline"
+                      onClick={() => setIsCleanupDialogOpen(false)}
+                      disabled={isDeletingMedia}
+                    >
+                      Cancel
+                    </Button>
+                    <Button
+                      type="button"
+                      variant="destructive"
+                      onClick={handleDeleteSelectedFiles}
+                      disabled={isDeletingMedia || selectedFiles.size === 0 || isLoadingUnusedMedia}
+                    >
+                      {isDeletingMedia ? 'Deleting...' : `Delete ${selectedFiles.size} File(s)`}
+                    </Button>
+                  </DialogFooter>
                 </DialogContent>
               </Dialog>
             </CardContent>

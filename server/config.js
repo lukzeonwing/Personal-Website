@@ -42,7 +42,7 @@ if (!ADMIN_PASSWORD || ADMIN_PASSWORD.length < 8) {
 const BODY_SIZE_LIMIT = process.env.BODY_SIZE_LIMIT || '50mb'; // Reduced from 250mb
 
 // Build allowed origins from base list + domain if provided
-const baseOrigins = process.env.ALLOWED_ORIGINS || 'http://localhost:5173,http://localhost:4000';
+const baseOrigins = process.env.ALLOWED_ORIGINS || 'http://localhost:5173,http://localhost:5174,http://localhost:4000';
 const DOMAIN = process.env.DOMAIN;
 let ALLOWED_ORIGINS = baseOrigins;
 

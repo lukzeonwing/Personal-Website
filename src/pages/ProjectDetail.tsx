@@ -164,7 +164,7 @@ export function ProjectDetail() {
             {project.contentBlocks.map((block) => (
               <div key={block.id}>
                 {block.type === 'image' && block.image && (
-                  <div className="aspect-[16/9] rounded-lg overflow-hidden bg-muted">
+                  <div className="rounded-lg overflow-hidden bg-muted">
                     <ImageWithFallback
                       src={block.image}
                       alt={block.title || 'Project image'}
