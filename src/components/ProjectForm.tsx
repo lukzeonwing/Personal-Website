@@ -11,7 +11,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '.
 import { Switch } from './ui/switch';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 import { FileUpload } from './FileUpload';
-import { X, GripVertical, Image as ImageIcon, Type, Layers } from 'lucide-react';
+import { X, GripVertical, Image as ImageIcon, Type, Layers, Video } from 'lucide-react';
 import { toast } from 'sonner';
 import { resolveMediaUrl } from '../lib/api';
 
@@ -129,6 +129,7 @@ export function ProjectForm({ project, onSubmit }: ProjectFormProps) {
       title: '',
       description: '',
       image: '',
+      video: '',
     };
     setFormData({ ...formData, contentBlocks: [...formData.contentBlocks, newBlock] });
     setEditingBlockId(newBlock.id);
@@ -439,6 +440,16 @@ export function ProjectForm({ project, onSubmit }: ProjectFormProps) {
                   <Layers size={16} className="mr-2" />
                   Add Image + Text
                 </Button>
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  onClick={() => addContentBlock('video')}
+                  scrollToTopOnClick={false}
+                >
+                  <Video size={16} className="mr-2" />
+                  Add Video
+                </Button>
               </div>
             </div>
           ) : (
@@ -478,11 +489,12 @@ export function ProjectForm({ project, onSubmit }: ProjectFormProps) {
                                   <SelectItem value="image">Image Only</SelectItem>
                                   <SelectItem value="text">Text Only</SelectItem>
                                   <SelectItem value="image-text">Image + Text</SelectItem>
+                                  <SelectItem value="video">Video</SelectItem>
                                 </SelectContent>
                               </Select>
                             </div>
                             
-                            {(block.type === 'text' || block.type === 'image-text') && (
+                            {(block.type === 'text' || block.type === 'image-text' || block.type === 'video') && (
                               <>
                                 <div>
                                   <Label>Title (optional)</Label>
@@ -521,6 +533,21 @@ export function ProjectForm({ project, onSubmit }: ProjectFormProps) {
                                 />
                               </div>
                             )}
+
+                            {block.type === 'video' && (
+                              <div>
+                                <Label>Video</Label>
+                                <FileUpload
+                                  value={block.video || ''}
+                                  onChange={(value) => updateContentBlock(block.id, { video: value })}
+                                  placeholder="Enter video URL or upload/drag file"
+                                  showPreview={true}
+                                  entityType="project"
+                                  entityId={computedProjectId}
+                                  accept="video/*"
+                                />
+                              </div>
+                            )}
                             
                             <div className="flex gap-2">
                               <Button
@@ -539,6 +566,7 @@ export function ProjectForm({ project, onSubmit }: ProjectFormProps) {
                               {block.type === 'image' && <ImageIcon size={16} className="text-muted-foreground" />}
                               {block.type === 'text' && <Type size={16} className="text-muted-foreground" />}
                               {block.type === 'image-text' && <Layers size={16} className="text-muted-foreground" />}
+                              {block.type === 'video' && <Video size={16} className="text-muted-foreground" />}
                               <span className="capitalize text-muted-foreground">
                                 {block.type.replace('-', ' + ')}
                               </span>
@@ -550,6 +578,11 @@ export function ProjectForm({ project, onSubmit }: ProjectFormProps) {
                             {block.image && (
                               <p className="text-muted-foreground truncate mt-1">
                                 Image: {block.image.startsWith('data:') ? 'Uploaded image' : block.image}
+                              </p>
+                            )}
+                            {block.video && (
+                              <p className="text-muted-foreground truncate mt-1">
+                                Video: {block.video.startsWith('data:') ? 'Uploaded video' : block.video}
                               </p>
                             )}
                             <div className="flex gap-2 mt-3">
@@ -611,6 +644,16 @@ export function ProjectForm({ project, onSubmit }: ProjectFormProps) {
                 >
                   <Layers size={16} className="mr-2" />
                   Add Image + Text
+                </Button>
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  onClick={() => addContentBlock('video')}
+                  scrollToTopOnClick={false}
+                >
+                  <Video size={16} className="mr-2" />
+                  Add Video
                 </Button>
               </div>
             </>

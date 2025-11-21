@@ -1,9 +1,10 @@
 export interface ContentBlock {
   id: string;
-  type: 'image' | 'text' | 'image-text';
+  type: 'image' | 'text' | 'image-text' | 'video';
   title?: string;
   description?: string;
   image?: string;
+  video?: string;
 }
 
 export interface ViewRecord {

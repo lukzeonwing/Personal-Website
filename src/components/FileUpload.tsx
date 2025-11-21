@@ -39,7 +39,8 @@ export function FileUpload({
   };
 
   const processFile = (file: File) => {
-    if (file && file.type.startsWith('image/')) {
+    const typePrefix = accept.split('/')[0]; // 'image' or 'video'
+    if (file && file.type.startsWith(typePrefix)) {
       const reader = new FileReader();
       reader.onloadend = () => {
         const result = reader.result as string;
@@ -66,8 +67,8 @@ export function FileUpload({
       });
       onChange(uploadedUrl);
     } catch (err) {
-      console.error('Failed to upload image', err);
-      setError('Failed to upload image. Please try again.');
+      console.error('Failed to upload file', err);
+      setError('Failed to upload file. Please try again.');
     } finally {
       setIsUploading(false);
     }
@@ -97,7 +98,8 @@ export function FileUpload({
     const files = e.dataTransfer.files;
     if (files && files.length > 0) {
       const file = files[0];
-      if (file.type.startsWith('image/')) {
+      const typePrefix = accept.split('/')[0];
+      if (file.type.startsWith(typePrefix)) {
         processFile(file);
       }
     }
@@ -134,7 +136,7 @@ export function FileUpload({
           />
           {isDragging && (
             <p className="text-xs text-muted-foreground mt-1 px-3">
-              Drop image here
+              Drop file here
             </p>
           )}
         </div>
@@ -144,8 +146,8 @@ export function FileUpload({
           accept={accept}
           onChange={handleFileChange}
           className="hidden"
-          title="Upload image file"
-          placeholder="Choose an image file"
+          title="Upload file"
+          placeholder="Choose a file"
         />
         <div className="flex gap-2 items-start">
           <Button
@@ -174,7 +176,7 @@ export function FileUpload({
       </div>
       {isUploading && (
         <p className="text-xs text-muted-foreground">
-          Uploading image...
+          Uploading...
         </p>
       )}
       {error && (
@@ -184,11 +186,19 @@ export function FileUpload({
       )}
       {showPreview && value && (
         <div className="relative aspect-video w-full max-w-xs rounded-lg overflow-hidden bg-muted">
-          <img 
-            src={typeof previewSrc === 'string' ? previewSrc : undefined} 
-            alt="Preview" 
-            className="w-full h-full object-cover"
-          />
+          {accept.startsWith('video') ? (
+            <video
+              src={typeof previewSrc === 'string' ? previewSrc : undefined}
+              controls
+              className="w-full h-full object-cover"
+            />
+          ) : (
+            <img 
+              src={typeof previewSrc === 'string' ? previewSrc : undefined} 
+              alt="Preview" 
+              className="w-full h-full object-cover"
+            />
+          )}
         </div>
       )}
     </div>

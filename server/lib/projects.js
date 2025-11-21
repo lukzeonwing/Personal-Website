@@ -35,18 +35,32 @@ function normalizeProjectMedia(project) {
       if (!block || typeof block !== 'object') {
         return block;
       }
-      if (typeof block.image !== 'string') {
-        return block;
+      
+      let blockChanged = false;
+      const newBlock = { ...block };
+
+      if (typeof block.image === 'string') {
+        const normalizedImage = normalizeUploadPath(block.image);
+        if (normalizedImage !== block.image) {
+          newBlock.image = normalizedImage;
+          blockChanged = true;
+        }
       }
-      const normalizedImage = normalizeUploadPath(block.image);
-      if (normalizedImage === block.image) {
-        return block;
+
+      if (typeof block.video === 'string') {
+        const normalizedVideo = normalizeUploadPath(block.video);
+        if (normalizedVideo !== block.video) {
+          newBlock.video = normalizedVideo;
+          blockChanged = true;
+        }
       }
-      changed = true;
-      return {
-        ...block,
-        image: normalizedImage,
-      };
+
+      if (blockChanged) {
+        changed = true;
+        return newBlock;
+      }
+      
+      return block;
     });
     normalized.contentBlocks = updatedBlocks;
   }

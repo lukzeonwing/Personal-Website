@@ -39,7 +39,7 @@ if (!ADMIN_PASSWORD || ADMIN_PASSWORD.length < 8) {
   process.exit(1);
 }
 
-const BODY_SIZE_LIMIT = process.env.BODY_SIZE_LIMIT || '50mb'; // Reduced from 250mb
+const BODY_SIZE_LIMIT = process.env.BODY_SIZE_LIMIT || '500mb'; // Increased for video uploads
 
 // Build allowed origins from base list + domain if provided
 const baseOrigins = process.env.ALLOWED_ORIGINS || 'http://localhost:5173,http://localhost:5174,http://localhost:4000';

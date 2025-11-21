@@ -38,19 +38,19 @@ function createUploadsRouter() {
       return res.status(400).json({ message: 'Invalid entity identifier' });
     }
 
-    const match = data.match(/^data:(image\/[a-zA-Z0-9+.\-]+);base64,(.+)$/);
+    const match = data.match(/^data:((?:image|video)\/[a-zA-Z0-9+.\-]+);base64,(.+)$/);
     if (!match) {
-      return res.status(400).json({ message: 'Unsupported image format' });
+      return res.status(400).json({ message: 'Unsupported file format' });
     }
 
     const [, mimeType, base64String] = match;
     if (!base64String) {
-      return res.status(400).json({ message: 'Invalid image data' });
+      return res.status(400).json({ message: 'Invalid file data' });
     }
 
     const buffer = Buffer.from(base64String, 'base64');
     if (!buffer || buffer.length === 0) {
-      return res.status(400).json({ message: 'Empty image data' });
+      return res.status(400).json({ message: 'Empty file data' });
     }
 
     const extension = getExtensionFromMime(mimeType);

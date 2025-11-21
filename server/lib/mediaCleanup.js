@@ -72,11 +72,14 @@ function extractReferencedUrls() {
         }
       }
       
-      // Content blocks images
+      // Content blocks images and videos
       if (Array.isArray(project.contentBlocks)) {
         project.contentBlocks.forEach(block => {
-          if (block.type === 'image' && block.image) {
+          if (block.image) {
             urls.add(block.image);
+          }
+          if (block.video) {
+            urls.add(block.video);
           }
         });
       }

@@ -17,6 +17,10 @@ function getExtensionFromMime(mime) {
     'image/svg+xml': 'svg',
     'image/avif': 'avif',
     'image/heic': 'heic',
+    'video/mp4': 'mp4',
+    'video/webm': 'webm',
+    'video/ogg': 'ogv',
+    'video/quicktime': 'mov',
   };
   if (map[mime]) {
     return map[mime];

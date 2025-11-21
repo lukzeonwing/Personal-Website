@@ -201,6 +201,24 @@ export function ProjectDetail() {
                     </div>
                   </div>
                 )}
+
+                {block.type === 'video' && block.video && (
+                  <div className="rounded-lg overflow-hidden bg-muted">
+                    <video
+                      src={block.video}
+                      controls
+                      className="w-full h-full object-cover"
+                    />
+                    {(block.title || block.description) && (
+                      <div className="mt-4">
+                        {block.title && <h3 className="text-2xl mb-2">{block.title}</h3>}
+                        {block.description && (
+                          <p className="text-lg leading-relaxed">{block.description}</p>
+                        )}
+                      </div>
+                    )}
+                  </div>
+                )}
               </div>
             ))}
           </div>
